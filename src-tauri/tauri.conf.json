@@ -44,7 +44,7 @@
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDZFMDkxRUFCRkE4RjkwQTgKUldTb2tJLzZxeDRKYmtNYlRHMWNCREZVVjEwRW8zQ0JaUjRvZTIvRDZJQ1lrTjJHTi9kcGROM3QK",
       "endpoints": [
-        "https://github.com/user/repo/releases/latest/download/latest.json"
+        "https://github.com/user/repo/releases/latest/downloa/latest.json"
       ]
     }
   }
