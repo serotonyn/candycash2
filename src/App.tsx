@@ -1,20 +1,30 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
+// import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
-import { enable, isEnabled } from "@tauri-apps/plugin-autostart";
+// import { enable, isEnabled } from "@tauri-apps/plugin-autostart";
+import { check } from "@tauri-apps/plugin-updater";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-    if (!(await isEnabled())) {
-      await enable();
+    // setGreetMsg(await invoke("greet", { name }));
+    // if (!(await isEnabled())) {
+    //   await enable();
+    // }
+    // console.log(`registered for autostart? ${await isEnabled()}`);
+    const update = await check();
+    setGreetMsg(update?.version || "--");
+    if (update) {
+      setGreetMsg(
+        `found update ${update.version} from ${update.date} with notes ${update.body}`
+      );
+    } else {
+      setGreetMsg("no update found");
     }
-    console.log(`registered for autostart? ${await isEnabled()}`);
   }
 
   return (
@@ -40,11 +50,11 @@ function App() {
           e.preventDefault();
           greet();
         }}>
-        <input
+        {/* <input
           id="greet-input"
           onChange={(e) => setName(e.currentTarget.value)}
           placeholder="Enter a name..."
-        />
+        /> */}
         <button type="submit">Greet</button>
       </form>
       <p>{greetMsg}</p>
