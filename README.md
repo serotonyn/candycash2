@@ -1,5 +1,6 @@
 # Publish steps
 
+- password for private key is `123`
 - bump version (use `pnpm run bump-version`)
 - build app (use `pnpm run build`)
 - generate latest.json (use `pnpm run generate-latest-json`)
