@@ -423,7 +423,7 @@ dependencies = [
 
 [[package]]
 name = "candycash"
-version = "0.1.3"
+version = "0.1.5"
 dependencies = [
  "serde",
  "serde_json",
@@ -431,6 +431,7 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-autostart",
  "tauri-plugin-opener",
+ "tauri-plugin-process",
  "tauri-plugin-updater",
 ]
 
@@ -3970,6 +3971,16 @@ dependencies = [
  "url",
  "windows",
  "zbus",
+]
+
+[[package]]
+name = "tauri-plugin-process"
+version = "2.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "40cc553ab29581c8c43dfa5fb0c9d5aee8ba962ad3b42908eea26c79610441b7"
+dependencies = [
+ "tauri",
+ "tauri-plugin",
 ]
 
 [[package]]

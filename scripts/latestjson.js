@@ -25,7 +25,7 @@ const sigPath = path.join(
 );
 
 const signature = fs.readFileSync(sigPath, "utf-8");
-const url = `https://github.com/serotonyn/${name}-update/releases/download/latest/${name}-update_${version}_x64_en-US.msi`;
+const url = `https://github.com/serotonyn/${name}-update/releases/download/latest/${name}_${version}_x64_en-US.msi`;
 
 const outputDir = path.join(__dirname, "..", "out");
 
