@@ -89,7 +89,8 @@ const Options = () => {
 
   const renderTabs = () => {
     const canAccess = (isAdminOnly: boolean) => {
-      return isAdminOnly ? (isAdminLogged ? true : false) : true;
+      // return isAdminOnly ? (isAdminLogged ? true : false) : true;
+      return true;
     };
 
     return subPaths.map((subPath) => {
