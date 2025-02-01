@@ -27,6 +27,12 @@
         "type": "skip"
       }
     },
+    "externalBin": [
+      "bin/pocketbase"
+    ],
+    "resources": [
+      "pocketbase/"
+    ],
     "active": true,
     "targets": [
       "msi"

@@ -1,12 +1,12 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
+use tauri::{path::BaseDirectory, Manager};
+use tauri_plugin_shell::ShellExt;
+use tauri_plugin_shell::process::{CommandEvent};
+use fs_extra::dir::*;
+
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
@@ -15,7 +15,61 @@ pub fn run() {
             None,
         ))
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .setup(|app| {
+
+            let resource_path = app
+                .path()
+                .resolve("pocketbase", BaseDirectory::Resource)?;
+            let local_candy_path = app
+                .path()
+                .resolve("candycash", BaseDirectory::LocalData)?;
+            let data_path = app
+                .path()
+                .resolve("candycash/pb_data", BaseDirectory::LocalData)?;
+            let public_path = app
+                .path()
+                .resolve("candycash/pb_public", BaseDirectory::LocalData)?;
+            let hooks_path = app
+                .path()
+                .resolve("candycash/pb_hooks", BaseDirectory::LocalData)?;
+
+            let options = CopyOptions {
+                overwrite: true,
+                content_only:true,
+                ..Default::default()
+            };
+
+            // Copy pocketbase files to local candycash
+            copy(resource_path, local_candy_path, &options)?;
+
+            let sidecar_command = app
+                .shell()
+                .sidecar("pocketbase")
+                .unwrap()
+                .args(["serve"])
+                .args(["--dir", data_path.to_str().unwrap()])
+                .args(["--publicDir", public_path.to_str().unwrap()])
+                .args(["--hooksDir", hooks_path.to_str().unwrap()]);
+
+            let (mut rx, mut _child) = sidecar_command.spawn().expect("Failed to spawn sidecar");
+
+            std::thread::spawn(move || {
+                while let Some(output) = rx.blocking_recv() {
+                    // Convert CommandEvent to bytes
+                    let bytes = match output {
+                        CommandEvent::Stdout(data) => data,
+                        CommandEvent::Stderr(data) => data,
+                        _ => continue,  // Skip other event types
+                    };
+                    
+                    // Convert bytes to string
+                    let string = std::str::from_utf8(&bytes).unwrap();
+                    dbg!(string);
+                }
+            });
+
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
