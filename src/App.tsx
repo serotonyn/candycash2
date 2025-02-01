@@ -1,4 +1,3 @@
-import { Button } from "@fluentui/react-components";
 // import { enable, isEnabled } from "@tauri-apps/plugin-autostart";
 // import { check } from "@tauri-apps/plugin-updater";
 // import { relaunch } from "@tauri-apps/plugin-process";
@@ -13,6 +12,16 @@ import { Button } from "@fluentui/react-components";
 //     throw error;
 //   }
 // }
+import styled from "@emotion/styled";
+import { Routes } from "./components/Routes";
+
+const PageWrapper = styled.div`
+  & div.fui-DialogSurface__backdrop {
+    inset: 27px 0px 0px 0px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+`;
 
 function App() {
   // const [greetMsg, setGreetMsg] = useState("");
@@ -59,11 +68,9 @@ function App() {
   }
 
   return (
-    <main className="container">
-      <h1>Welcome to CandyCash</h1>
-
-      <Button onClick={greet}>Greet</Button>
-    </main>
+    <PageWrapper id="main">
+      <Routes />
+    </PageWrapper>
   );
 }
 
