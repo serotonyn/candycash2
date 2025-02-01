@@ -8,7 +8,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 2rem);
+  height: 100vh;
   min-height: 600px;
 
   & > div {
