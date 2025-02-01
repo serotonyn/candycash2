@@ -4,9 +4,9 @@ import { Dashboard } from "@/pages/Dashboard";
 import Options from "@/pages/Options";
 import Profile from "@/pages/Profile";
 import Company from "@/pages/Company";
+import Categories from "@/pages/Categories";
+import Category from "@/pages/Category";
 // import Appearance from "@/pages/Appearance";
-// import Categories from "@/pages/Categories";
-// import Category from "@/pages/Category";
 // import Printer from "@/pages/Printer";
 // import Sales from "@/pages/Sales";
 // import { SaleDetails } from "./options/sales/SaleDetails";
@@ -30,16 +30,16 @@ export const Routes = () => {
           path: "company",
           element: <Company />,
         },
-        // {
-        //   path: "categories",
-        //   element: <Categories />,
-        //   children: [
-        //     {
-        //       path: ":categoryId",
-        //       element: <Category />,
-        //     },
-        //   ],
-        // },
+        {
+          path: "categories",
+          element: <Categories />,
+          children: [
+            {
+              path: ":categoryId",
+              element: <Category />,
+            },
+          ],
+        },
         //     {
         //       path: "sales",
         //       element: <Sales />,
