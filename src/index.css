@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body #root {
+  overflow: hidden;
+  height: 100vh;
+}
+
+html {
+  font-size: 13px;
+}
+
+html * {
+  scrollbar-width: inherit;
+}
