@@ -12,6 +12,8 @@
     "autostart:default",
     "updater:default",
     "process:default",
-    "shell:default"
+    "shell:default",
+    "core:window:default",
+    "core:window:allow-start-dragging"
   ]
 }
