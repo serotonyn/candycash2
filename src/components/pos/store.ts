@@ -15,8 +15,8 @@ interface PosState {
   setLeftShows: (leftShows: "IDLE" | "HISTORY" | "CURRENT_TRANSACTION") => void;
   selectedCategoryId: string | undefined;
   setSelectedCategoryId: (selectedCategoryId: string) => void;
-  // selectedItem: ProductsExpanded | undefined;
-  // setSelectedItem: (selectedItem: ProductsExpanded | undefined) => void;
+  selectedItem: ProductsExpanded | undefined;
+  setSelectedItem: (selectedItem: ProductsExpanded | undefined) => void;
   retailPrice: number;
   setRetailPrice: (retailPrice: string) => void;
   quantity: number;
@@ -55,8 +55,8 @@ export const usePosStore = create<PosState>((set, get) => ({
   setSelectedCategoryId: (selectedCategoryId: string) =>
     set(() => ({ selectedCategoryId })),
   selectedItem: undefined,
-  // setSelectedItem: (selectedItem: ProductsExpanded | undefined) =>
-  //   set(() => ({ selectedItem })),
+  setSelectedItem: (selectedItem: ProductsExpanded | undefined) =>
+    set(() => ({ selectedItem })),
   retailPrice: 0,
   setRetailPrice: (retailPrice: string) => {
     set(() => ({ retailPrice: Number(retailPrice) }));
