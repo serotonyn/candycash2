@@ -152,9 +152,13 @@ export const Confettis = () => {
           duration: 0.1,
           delay: 2.4,
         },
+        position: {
+          x: 25,
+          y: 10,
+        },
         rate: {
           delay: 0.1,
-          quantity: 200,
+          quantity: 330,
         },
         size: {
           width: 0,
@@ -173,9 +177,6 @@ export const Confettis = () => {
         }}
         onClick={() => setIsConffettis(false)}>
         <Particles id="1" options={options} />
-        <Particles id="2" options={{ ...options }} />
-        <Particles id="3" options={options} />
-        <Particles id="4" options={options} />
       </div>
     );
   }
