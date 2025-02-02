@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import ProductPlaceHolder from "@/assets/product-placeholder.png";
 import { MotionList } from "@/components/common/MotionList";
 import { useGetCompany } from "@/components/hooks/useGetCompany";
-// import { ImageUpload } from "@/components/pos/ImageUpload";
+import { ImageUpload } from "@/components/pos/ImageUpload";
 import { CompanyExpanded } from "@/types/expanded";
 import styled from "@emotion/styled";
 import {
@@ -179,12 +179,12 @@ const Company = () => {
             </CardStyled>
             <CardStyled>
               <Subtitle1>Mettre à jour le logo</Subtitle1>
-              {/* <ImageUpload
+              <ImageUpload
                 hideLabel
                 img={company?.imgUrl || ProductPlaceHolder}
                 Trigger={<></>}
                 setFile={() => {}}
-              /> */}
+              />
             </CardStyled>
           </Container>
         </MotionList>
