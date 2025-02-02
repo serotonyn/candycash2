@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { CategoriesResponse, Collections } from '@/pocketbase-types';
-import client from '@/services/client';
-import { CategoriesExpanded } from '@/types/expanded';
+import { CategoriesResponse, Collections } from "@/pocketbase-types";
+import client from "@/services/client";
+import { CategoriesExpanded } from "@/types/expanded";
 
 interface OwnProps {
   filter?: string;
@@ -12,7 +12,7 @@ interface OwnProps {
 }
 
 const getUrl = async (record: CategoriesResponse) => {
-  return client?.files.getUrl(record, record.image);
+  return client?.files.getURL(record, record.image);
 };
 
 export const useGetCategories = ({ filter, expand, requestKey }: OwnProps) => {
@@ -42,9 +42,9 @@ export const useGetCategories = ({ filter, expand, requestKey }: OwnProps) => {
       setCategories(categoriesWithImageUrls || []);
     } catch (err) {
       client?.collection(Collections.Logs).create({
-        file: 'useGetCategories',
+        file: "useGetCategories",
         message: err,
-      })
+      });
     }
   };
 

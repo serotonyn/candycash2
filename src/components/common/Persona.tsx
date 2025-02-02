@@ -49,7 +49,7 @@ export const Persona: React.FC<PersonaProps> = ({
   // const { currentUser } = useAuth();
 
   const getUrl = async (currentUser: UsersResponse) => {
-    return client?.files.getUrl(currentUser, currentUser.avatar);
+    return client?.files.getURL(currentUser, currentUser.avatar);
   };
 
   // useEffect(() => {

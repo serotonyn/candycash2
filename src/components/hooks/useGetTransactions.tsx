@@ -95,7 +95,7 @@ interface SingleProps {
 }
 
 const getUrl = async (record: ProductsResponse) => {
-  return client?.files.getUrl(record, record.image);
+  return client?.files.getURL(record, record.image);
 };
 
 export const useGetTransaction = ({

@@ -12,7 +12,7 @@ interface OwnProps {
 }
 
 const getUrl = async (record: CompanyResponse) => {
-  return client?.files.getUrl(record, record.logo);
+  return client?.files.getURL(record, record.logo);
 };
 
 export const useGetCompany = ({ filter, expand, requestKey }: OwnProps) => {
