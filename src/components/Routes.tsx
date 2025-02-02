@@ -6,8 +6,7 @@ import Profile from "@/pages/Profile";
 import Company from "@/pages/Company";
 import Categories from "@/pages/Categories";
 import Category from "@/pages/Category";
-// import Appearance from "@/pages/Appearance";
-// import Printer from "@/pages/Printer";
+import Appearance from "@/pages/Appearance";
 import Sales from "@/pages/Sales";
 import { SaleDetails } from "./options/sales/SaleDetails";
 
@@ -50,14 +49,10 @@ export const Routes = () => {
             },
           ],
         },
-        // {
-        //   path: "printer",
-        //   element: <Printer />,
-        // },
-        // {
-        //   path: "appearance",
-        //   element: <Appearance />,
-        // },
+        {
+          path: "appearance",
+          element: <Appearance />,
+        },
       ],
     },
   ]);

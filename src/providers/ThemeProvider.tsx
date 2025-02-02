@@ -6,14 +6,11 @@ import {
   useState,
 } from "react";
 
-// import { AppWindowContext } from '@/components/common/titlebar/context';
 import { useSystemColorScheme } from "@/hooks/useSystemColorScheme";
 import { css, Global, ThemeProvider } from "@emotion/react";
 import { FluentProvider } from "@fluentui/react-components";
 
 import { darkTheme, lightTheme } from "../constants/theme";
-// import { Collections } from '../pocketbase-types';
-// import client from '../services/client';
 
 type AppThemeProviderProps = {
   children: JSX.Element;
@@ -32,11 +29,7 @@ const ThemeContext = createContext<ThemeContext>({
 });
 
 export const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
-  // const { isWindowMaximized } = useContext(AppWindowContext);
-  const [colorScheme, setColorScheme] = useState(
-    // client?.authStore?.model?.colorScheme
-    "System" as ColorScheme
-  );
+  const [colorScheme, setColorScheme] = useState("System" as ColorScheme);
 
   const systemColorScheme = useSystemColorScheme();
 
@@ -47,11 +40,7 @@ export const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
 
   const changeColorScheme = useCallback(async (value: ColorScheme) => {
     try {
-      // const currentUserId = client?.authStore?.model?.id;
-      // await client
-      //   ?.collection(Collections.Users)
-      //   .update(currentUserId, { colorScheme: value });
-      // setColorScheme(value);
+      setColorScheme(value);
     } catch (error) {}
   }, []);
 
