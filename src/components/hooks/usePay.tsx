@@ -3,16 +3,17 @@ import { Collections } from "@/pocketbase-types";
 import client from "@/services/client";
 
 import { useInitTransaction } from "./useInitTransaction";
-import { usePrint } from "./usePrint";
+// import { usePrint } from "./usePrint";
 import { useSave } from "./useSave";
 
 export const usePay = () => {
   const reset = usePosStore((state) => state.reset);
   const orderItems = usePosStore((state) => state.orderItems);
-  usePosStore((state) => state.orderItems);
+  // usePosStore((state) => state.orderItems);
   const { save } = useSave();
-  const { print } = usePrint();
+  // const { print } = usePrint();
   const { init } = useInitTransaction();
+  const setIsConffettis = usePosStore((state) => state.setIsConffettis);
 
   const pay = async () => {
     if (!orderItems.length) {
@@ -23,6 +24,7 @@ export const usePay = () => {
         // await print();
         reset();
         init();
+        setIsConffettis(true);
       } catch (err) {
         client?.collection(Collections.Logs).create({
           file: "usePay",

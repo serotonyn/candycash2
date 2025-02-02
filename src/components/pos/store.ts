@@ -37,6 +37,8 @@ interface PosState {
   ) => void;
   askStartShiftDialog: boolean;
   setAskStartShiftDialog: (askStartShiftDialog: boolean) => void;
+  isConffettis: boolean;
+  setIsConffettis: (isConffettis: boolean) => void;
 }
 
 export const usePosStore = create<PosState>((set, get) => ({
@@ -135,4 +137,6 @@ export const usePosStore = create<PosState>((set, get) => ({
   askStartShiftDialog: false,
   setAskStartShiftDialog: (askStartShiftDialog: boolean) =>
     set({ askStartShiftDialog }),
+  isConffettis: false,
+  setIsConffettis: (isConffettis: boolean) => set({ isConffettis }),
 }));

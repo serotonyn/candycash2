@@ -1,3 +1,4 @@
+import { Confettis } from "@/components/common/Confettis";
 import { useInitTransaction } from "@/components/hooks/useInitTransaction";
 // import { AskStartShiftDialog } from "@/components/pos/AskStartShiftDialog";
 import { Left } from "@/components/pos/Left";
@@ -26,6 +27,7 @@ export const Dashboard = () => {
       <Right />
       {/* <EnterCodeDialog /> */}
       {/* <AskStartShiftDialog /> */}
+      <Confettis />
     </Wrap>
   );
 };
