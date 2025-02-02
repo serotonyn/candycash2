@@ -112,7 +112,7 @@ interface OwnProps {
 
 export const MyDocument = (props: OwnProps) => (
   <Document>
-    <Page size={[204, 817.18]} style={styles.page} wrap={false}>
+    <Page size={[194, 817.18]} style={styles.page} wrap={false}>
       <View style={styles.header}>
         <View style={styles.titleWrap}>
           <Text style={styles.title}>Clotûre de caisse</Text>
