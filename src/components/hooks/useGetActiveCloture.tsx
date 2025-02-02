@@ -36,7 +36,7 @@ export const useGetActiveCloture = ({ requestKey }: OwnProps) => {
   };
 
   useEffect(() => {
-    // fetchActiveCloture();
+    fetchActiveCloture();
   }, []);
 
   return {
