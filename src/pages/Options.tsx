@@ -81,7 +81,7 @@ const Options = () => {
       isAdminOnly: true,
     },
     { key: "sales", label: "Ventes", Icon: LowPrice, isAdminOnly: true },
-    { key: "printer", label: "Imprimante", Icon: Printer, isAdminOnly: true },
+    // { key: "printer", label: "Imprimante", Icon: Printer, isAdminOnly: true },
     { key: "appearance", label: "Apparance", Icon: Perso, isAdminOnly: false },
   ];
   const selected = pathname.substring(7);
