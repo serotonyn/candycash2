@@ -2,8 +2,10 @@ import dayjs, { Dayjs } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import { OrderItemsResponse } from "@/pocketbase-types";
-// import { app, fs } from "@tauri-apps/api";
+import { getName } from "@tauri-apps/api/app";
+import { exists, mkdir, writeFile } from "@tauri-apps/plugin-fs";
 import { join, localDataDir } from "@tauri-apps/api/path";
+import { Command } from "@tauri-apps/plugin-shell";
 
 dayjs.extend(relativeTime);
 
@@ -13,27 +15,32 @@ export const calculateGrandTotal = (
 
 export async function getDocumentsPath() {
   const appDataDirPath = await localDataDir();
-  // const appName = await app.getName();
-  const documentPath = await join(
-    appDataDirPath,
-    // `com.${appName}.dev`,
-    "documents"
-  );
-  // if (!(await fs.exists(documentPath))) {
-  //   await fs.createDir(documentPath);
-  // }
+  const appName = await getName();
+  const documentPath = await join(appDataDirPath, `${appName}`, "documents");
+  if (!(await exists(documentPath))) {
+    await mkdir(documentPath);
+  }
   return documentPath;
 }
 
 export async function writePdf(pdfPath: string, file: Blob) {
-  // if (await fs.exists(pdfPath)) return;
+  await writeFile(pdfPath, new Uint8Array(await file.arrayBuffer()));
+}
 
-  // await fs.writeBinaryFile({
-  //   path: pdfPath,
-  //   contents: new Uint8Array(await file.arrayBuffer()),
-  // });
-
-  return document;
+export async function printPdf() {
+  const command = Command.sidecar(
+    "bin/sumatra",
+    [
+      "-print-to-default",
+      "-print-settings",
+      "'1-2,portrait,noscale,simplex,repeat=1,paper=A8'",
+      "doc.pdf",
+    ],
+    {
+      cwd: `${await getDocumentsPath()}`,
+    }
+  );
+  await command.execute();
 }
 
 export function fileToBase64(file: File): Promise<string> {

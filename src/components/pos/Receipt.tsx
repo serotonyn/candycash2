@@ -142,10 +142,10 @@ const styles = StyleSheet.create({
 
 interface OwnProps {
   orderItems: Partial<OrderItemsResponse>[];
-  logoUrl?: string;
+  // logoUrl?: string;
   total: number;
   sequence: number | undefined;
-  username?: string;
+  // username?: string;
   dateCreated?: string;
 }
 
@@ -177,7 +177,7 @@ export const MyDocument = (props: OwnProps) => (
 
         <View style={styles.row}>
           <Text style={styles.label}>Agent : </Text>
-          <Text>{props.username}</Text>
+          <Text>props.username</Text>
         </View>
 
         <View style={styles.row}>

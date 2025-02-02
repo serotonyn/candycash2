@@ -1,4 +1,4 @@
-// import { print_file } from "tauri-plugin-printer";
+import { print_file, printers } from "tauri-plugin-printer-api";
 
 import { MyDocument } from "@/components/pos/Receipt";
 import { usePosStore } from "@/components/pos/store";
@@ -8,10 +8,9 @@ import client from "@/services/client";
 import { pdf } from "@react-pdf/renderer";
 import { join } from "@tauri-apps/api/path";
 
-import { getDocumentsPath, writePdf } from "../pos/helpers";
+import { getDocumentsPath, printPdf, writePdf } from "../pos/helpers";
 import { useAppStore } from "../store";
 import { useGetCompany } from "./useGetCompany";
-import { ReceiptTrim } from "../pos/ReceiptTrim";
 
 export type ScaleOption = "noscale" | "shrink" | "fit";
 export type MethodOption = "duplex" | "duplexshort" | "simplex";
@@ -29,14 +28,14 @@ export type OrientationOption = "portrait" | "landscape";
 export const usePrint = () => {
   const orderItems = usePosStore((state) => state.orderItems);
   const getGrandTotal = usePosStore((state) => state.computed.getGrandTotal);
-  const { fetch: fetchCompany } = useGetCompany({ requestKey: "usePrint" });
+  // const { fetch: fetchCompany } = useGetCompany({ requestKey: "usePrint" });
   const transaction = usePosStore((state) => state.transaction);
   // const { currentUser } = useAuth();
-  const settings = useAppStore((state) => state.settings);
+  // const settings = useAppStore((state) => state.settings);
 
   const print = async () => {
     try {
-      if (!settings) throw "no settings";
+      // if (!settings) throw "no settings";
 
       const settingss = {
         method: "simplex" as MethodOption,
@@ -52,19 +51,12 @@ export const usePrint = () => {
         },
       };
 
-      const company = await fetchCompany();
-
-      const blobTrimmed = await pdf(
-        ReceiptTrim({
-          orderItems,
-          sequence: transaction?.sequence,
-        })
-      ).toBlob();
+      // const company = await fetchCompany();
 
       const blob = await pdf(
         MyDocument({
           orderItems,
-          logoUrl: company?.imgUrl,
+          // logoUrl: company?.imgUrl,
           total: getGrandTotal(),
           sequence: transaction?.sequence,
           // username: currentUser?.username,
@@ -73,29 +65,14 @@ export const usePrint = () => {
       ).toBlob();
 
       const documentsPath = await getDocumentsPath();
-      const filename = `receipt.pdf`;
-      const filenameTrimmed = `trimmed.pdf`;
+      const filename = `doc.pdf`;
 
       const pdfPath = await join(documentsPath, filename);
       await writePdf(pdfPath, blob);
 
-      const pdfPathTrimmed = await join(documentsPath, filenameTrimmed);
-      await writePdf(pdfPathTrimmed, blobTrimmed);
-
       console.log(`pdf: ${pdfPath}`);
-      console.log(`setting: ${JSON.stringify(settings)}`);
 
-      // await print_file({
-      //   id: "Q2Fub24gRzMwMTAgc2VyaWVz",
-      //   path: pdfPath,
-      //   print_setting: settingss,
-      // });
-
-      // await print_file({
-      //   id: "Q2Fub24gRzMwMTAgc2VyaWVa",
-      //   path: pdfPathTrimmed,
-      //   print_setting: settingss,
-      // });
+      await printPdf();
     } catch (err) {
       client?.collection(Collections.Logs).create({
         file: "usePrint",

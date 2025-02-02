@@ -7,13 +7,11 @@ import client from "@/services/client";
 import { pdf } from "@react-pdf/renderer";
 import { join } from "@tauri-apps/api/path";
 
-import { getDocumentsPath, writePdf } from "../pos/helpers";
-import { useAppStore } from "../store";
+import { getDocumentsPath, printPdf, writePdf } from "../pos/helpers";
 import { TopSale } from "./useGetTopSales";
 
 export const usePrintCloture = () => {
   // const { currentUser } = useAuth();
-  const settings = useAppStore((state) => state.settings);
 
   const print = async (
     startDate: string,
@@ -24,7 +22,6 @@ export const usePrintCloture = () => {
     topSales: TopSale[]
   ) => {
     try {
-      if (!settings) throw "no settings";
       const blob = await pdf(
         MyDocument({
           // username: curren tUser?.username,
@@ -38,30 +35,14 @@ export const usePrintCloture = () => {
       ).toBlob();
 
       const documentsPath = await getDocumentsPath();
-      const filename = `cloture.pdf`;
+      const filename = `doc.pdf`;
 
       const pdfPath = await join(documentsPath, filename);
       await writePdf(pdfPath, blob);
 
       console.log(`pdf: ${pdfPath}`);
 
-      // await print_file({
-      //   id: "Q2Fub24gRzMwMTAgc2VyaWVz",
-      //   path: pdfPath,
-      //   print_setting: {
-      //     method: settings.printer_method, // duplex | simplex | duplexshort
-      //     paper: settings.printer_paper, // "A2" | "A3" | "A4" | "A5" | "A6" | "letter" | "legal" | "tabloid"
-      //     scale: settings.printer_scale, //"noscale" | "shrink" | "fit"
-      //     repeat: 1, // total copies
-      //     orientation: settings.printer_orientation,
-      //     // range: "1,2,3"    // print page 1,2,3
-      //     range: {
-      //       // print page 1 - 3
-      //       from: 1,
-      //       to: 2,
-      //     },
-      //   },
-      // });
+      await printPdf();
     } catch (err) {
       client?.collection(Collections.Logs).create({
         file: "usePrintCloture",

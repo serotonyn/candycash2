@@ -1,11 +1,12 @@
+use fs_extra::dir::*;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 use tauri::{path::BaseDirectory, Manager};
+use tauri_plugin_shell::process::CommandEvent;
 use tauri_plugin_shell::ShellExt;
-use tauri_plugin_shell::process::{CommandEvent};
-use fs_extra::dir::*;
 
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
         .plugin(tauri_plugin_process::init())
@@ -16,13 +17,8 @@ pub fn run() {
         ))
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {
-
-            let resource_path = app
-                .path()
-                .resolve("pocketbase", BaseDirectory::Resource)?;
-            let local_candy_path = app
-                .path()
-                .resolve("candycash", BaseDirectory::LocalData)?;
+            let resource_path = app.path().resolve("pocketbase", BaseDirectory::Resource)?;
+            let local_candy_path = app.path().resolve("candycash", BaseDirectory::LocalData)?;
             let data_path = app
                 .path()
                 .resolve("candycash/pb_data", BaseDirectory::LocalData)?;
@@ -35,7 +31,7 @@ pub fn run() {
 
             let options = CopyOptions {
                 overwrite: true,
-                content_only:true,
+                content_only: true,
                 ..Default::default()
             };
 
@@ -59,9 +55,9 @@ pub fn run() {
                     let bytes = match output {
                         CommandEvent::Stdout(data) => data,
                         CommandEvent::Stderr(data) => data,
-                        _ => continue,  // Skip other event types
+                        _ => continue, // Skip other event types
                     };
-                    
+
                     // Convert bytes to string
                     let string = std::str::from_utf8(&bytes).unwrap();
                     dbg!(string);
@@ -72,4 +68,29 @@ pub fn run() {
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[tauri::command]
+async fn print(app: tauri::AppHandle) {
+    let sidecar_command = app
+        .shell()
+        .sidecar("sumatra")
+        .unwrap();
+
+    let (mut rx, mut _child) = sidecar_command.spawn().unwrap();
+
+    std::thread::spawn(move || {
+                while let Some(output) = rx.blocking_recv() {
+                    // Convert CommandEvent to bytes
+                    let bytes = match output {
+                        CommandEvent::Stdout(data) => data,
+                        CommandEvent::Stderr(data) => data,
+                        _ => continue, // Skip other event types
+                    };
+
+                    // Convert bytes to string
+                    let string = std::str::from_utf8(&bytes).unwrap();
+                    dbg!(string);
+                }
+            });
 }

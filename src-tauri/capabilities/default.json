@@ -12,12 +12,51 @@
       "identifier": "shell:allow-execute",
       "allow": [
         {
+          "name": "pocketbase",
+          "cmd": "pocketbase",
           "args": [
             "serve"
           ],
-          "name": "pocketbase",
-          "cmd": "pocketbase",
           "sidecar": true
+        },
+        {
+          "name": "bin/sumatra",
+          "cmd": "sumatra",
+          "args": [
+            "-print-to-default",
+            "-print-settings",
+            "'1-2,portrait,noscale,simplex,repeat=1,paper=A8'",
+            "doc.pdf"
+          ],
+          "sidecar": true
+        }
+      ]
+    },
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [
+        {
+          "path": "$LOCALDATA/candycash/*"
+        },
+        {
+          "path": "$LOCALDATA/candycash/documents/*"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-mkdir",
+      "allow": [
+        {
+          "path": "$LOCALDATA/candycash/*"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-write-file",
+      "allow": [
+        {
+          "path": "$LOCALDATA/candycash/documents/*"
         }
       ]
     }

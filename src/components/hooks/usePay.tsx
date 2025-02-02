@@ -3,15 +3,14 @@ import { Collections } from "@/pocketbase-types";
 import client from "@/services/client";
 
 import { useInitTransaction } from "./useInitTransaction";
-// import { usePrint } from "./usePrint";
+import { usePrint } from "./usePrint";
 import { useSave } from "./useSave";
 
 export const usePay = () => {
   const reset = usePosStore((state) => state.reset);
   const orderItems = usePosStore((state) => state.orderItems);
-  // usePosStore((state) => state.orderItems);
   const { save } = useSave();
-  // const { print } = usePrint();
+  const { print } = usePrint();
   const { init } = useInitTransaction();
   const setIsConffettis = usePosStore((state) => state.setIsConffettis);
 
@@ -21,7 +20,7 @@ export const usePay = () => {
     } else {
       try {
         await save();
-        // await print();
+        await print();
         reset();
         init();
         setIsConffettis(true);
