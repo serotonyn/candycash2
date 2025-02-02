@@ -40,6 +40,6 @@ export const useGetActiveCloture = ({ requestKey }: OwnProps) => {
   }, []);
 
   return {
-    refetch: () => {},
+    refetch: fetchActiveCloture,
   };
 };
