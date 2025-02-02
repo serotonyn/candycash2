@@ -1,6 +1,10 @@
-import { usePosStore } from '@/components/pos/store';
-import { Collections, SequencesResponse, TransactionsResponse } from '@/pocketbase-types';
-import client from '@/services/client';
+import { usePosStore } from "@/components/pos/store";
+import {
+  Collections,
+  SequencesResponse,
+  TransactionsResponse,
+} from "@/pocketbase-types";
+import client from "@/services/client";
 
 export const useSave = () => {
   const orderItems = usePosStore((state) => state.orderItems);
@@ -28,6 +32,9 @@ export const useSave = () => {
         let savedTransaction: Partial<TransactionsResponse> | undefined;
         await promise
           ?.then(async (transaction: TransactionsResponse) => {
+            // I dunno when this happens or if it happens
+            debugger;
+            throw new Error("transaction already exists");
             savedTransaction = transaction;
             await client
               ?.collection(Collections.Transactions)
@@ -38,8 +45,8 @@ export const useSave = () => {
               ?.collection(Collections.Sequences)
               .getFirstListItem<SequencesResponse>("");
 
-            if (!seq?.transaction) {
-              throw "no sequence";
+            if (seq?.transaction === undefined) {
+              throw new Error("no sequence");
             }
 
             savedTransaction = await client
@@ -75,6 +82,7 @@ export const useSave = () => {
           file: "useSave",
           message: err,
         });
+        throw err;
       }
     }
   };

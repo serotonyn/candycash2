@@ -1,10 +1,10 @@
-import { usePosStore } from '@/components/pos/store';
-import { Collections } from '@/pocketbase-types';
-import client from '@/services/client';
+import { usePosStore } from "@/components/pos/store";
+import { Collections } from "@/pocketbase-types";
+import client from "@/services/client";
 
-import { useInitTransaction } from './useInitTransaction';
-import { usePrint } from './usePrint';
-import { useSave } from './useSave';
+import { useInitTransaction } from "./useInitTransaction";
+import { usePrint } from "./usePrint";
+import { useSave } from "./useSave";
 
 export const usePay = () => {
   const reset = usePosStore((state) => state.reset);
@@ -20,14 +20,14 @@ export const usePay = () => {
     } else {
       try {
         await save();
-        await print();
+        // await print();
         reset();
         init();
       } catch (err) {
         client?.collection(Collections.Logs).create({
-          file: 'usePay',
+          file: "usePay",
           message: err,
-        })
+        });
       }
     }
   };

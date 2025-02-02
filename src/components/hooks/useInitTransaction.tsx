@@ -30,7 +30,13 @@ export const useInitTransaction = () => {
             });
 
           if (!sequences || sequences.length === 0) {
-            throw new Error("First sequence should be seeded");
+            // throw new Error("First sequence should be seeded");
+            const sequence = await client
+              ?.collection(Collections.Sequences)
+              .create<SequencesResponse>({
+                transaction: 0,
+              });
+            return (sequence?.transaction || 0) + 1;
           } else {
             return sequences[0].transaction + 1;
           }

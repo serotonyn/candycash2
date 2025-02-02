@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-// import { calculateOrderItemPrice } from '@/components/pos/helpers';
+import { calculateOrderItemPrice } from "@/components/pos/helpers";
 import { CloturesResponse, TransactionsResponse } from "@/pocketbase-types";
 import { OrderItemExpanded, ProductsExpanded } from "@/types/expanded";
 
@@ -61,43 +61,43 @@ export const usePosStore = create<PosState>((set, get) => ({
   setRetailPrice: (retailPrice: string) => {
     set(() => ({ retailPrice: Number(retailPrice) }));
 
-    // const selectedOrderItem = get().orderItems.find(
-    //   (orderItem: Partial<OrderItemExpanded>) =>
-    //     orderItem.itemIndex === get().selectedIndex
-    // );
-    // if (!selectedOrderItem) return;
+    const selectedOrderItem = get().orderItems.find(
+      (orderItem: Partial<OrderItemExpanded>) =>
+        orderItem.itemIndex === get().selectedIndex
+    );
+    if (!selectedOrderItem) return;
 
-    // set(() => ({
-    //   orderItems: get().orderItems.map((item) =>
-    //     item.itemIndex === selectedOrderItem.itemIndex
-    //       ? {
-    //           ...item,
-    //           ...calculateOrderItemPrice(Number(retailPrice), get().quantity),
-    //         }
-    //       : item
-    //   ),
-    // }));
+    set(() => ({
+      orderItems: get().orderItems.map((item) =>
+        item.itemIndex === selectedOrderItem.itemIndex
+          ? {
+              ...item,
+              ...calculateOrderItemPrice(Number(retailPrice), get().quantity),
+            }
+          : item
+      ),
+    }));
   },
   quantity: 1,
   setQuantity: (quantity: string) => {
     set(() => ({ quantity: Number(quantity) }));
 
-    // const selectedOrderItem = get().orderItems.find(
-    //   (orderItem: Partial<OrderItemExpanded>) =>
-    //     orderItem.itemIndex === get().selectedIndex
-    // );
-    // if (!selectedOrderItem) return;
+    const selectedOrderItem = get().orderItems.find(
+      (orderItem: Partial<OrderItemExpanded>) =>
+        orderItem.itemIndex === get().selectedIndex
+    );
+    if (!selectedOrderItem) return;
 
-    // set(() => ({
-    //   orderItems: get().orderItems.map((item) =>
-    //     item.itemIndex === selectedOrderItem.itemIndex
-    //       ? {
-    //           ...item,
-    //           ...calculateOrderItemPrice(get().retailPrice, Number(quantity)),
-    //         }
-    //       : item
-    //   ),
-    // }));
+    set(() => ({
+      orderItems: get().orderItems.map((item) =>
+        item.itemIndex === selectedOrderItem.itemIndex
+          ? {
+              ...item,
+              ...calculateOrderItemPrice(get().retailPrice, Number(quantity)),
+            }
+          : item
+      ),
+    }));
   },
   selectedIndex: undefined,
   setSelectedIndex: (selectedIndex: number | undefined) =>
@@ -105,26 +105,25 @@ export const usePosStore = create<PosState>((set, get) => ({
   orderItems: [],
   setOrderItems: (orderItems: Partial<OrderItemExpanded>[]) =>
     set({ orderItems }),
-  reset: () => {},
-  // set({
-  //   transaction: undefined,
-  //   leftShows: "IDLE",
-  //   selectedItem: undefined,
-  //   retailPrice: 0,
-  //   quantity: 1,
-  //   selectedIndex: 0,
-  //   orderItems: [],
-  //   enterCodeDialog: false,
-  //   focusedInput: undefined,
-  // }),
+  reset: () =>
+    set({
+      transaction: undefined,
+      leftShows: "IDLE",
+      selectedItem: undefined,
+      retailPrice: 0,
+      quantity: 1,
+      selectedIndex: 0,
+      orderItems: [],
+      enterCodeDialog: false,
+      focusedInput: undefined,
+    }),
   computed: {
     getGrandTotal: () => {
-      // const grandTotal = get().orderItems.reduce(
-      //   (acc, cur) => cur.subtotal! + acc,
-      //   0
-      // );
-      // return grandTotal;
-      return 123;
+      const grandTotal = get().orderItems.reduce(
+        (acc, cur) => cur.subtotal! + acc,
+        0
+      );
+      return grandTotal;
     },
   },
   enterCodeDialog: false,
