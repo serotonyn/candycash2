@@ -8,8 +8,8 @@ import Categories from "@/pages/Categories";
 import Category from "@/pages/Category";
 // import Appearance from "@/pages/Appearance";
 // import Printer from "@/pages/Printer";
-// import Sales from "@/pages/Sales";
-// import { SaleDetails } from "./options/sales/SaleDetails";
+import Sales from "@/pages/Sales";
+import { SaleDetails } from "./options/sales/SaleDetails";
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -40,24 +40,24 @@ export const Routes = () => {
             },
           ],
         },
-        //     {
-        //       path: "sales",
-        //       element: <Sales />,
-        //       children: [
-        //         {
-        //           path: ":saleId",
-        //           element: <SaleDetails />,
-        //         },
-        //       ],
-        //     },
-        //     {
-        //       path: "printer",
-        //       element: <Printer />,
-        //     },
-        //     {
-        //       path: "appearance",
-        //       element: <Appearance />,
-        //     },
+        {
+          path: "sales",
+          element: <Sales />,
+          children: [
+            {
+              path: ":saleId",
+              element: <SaleDetails />,
+            },
+          ],
+        },
+        // {
+        //   path: "printer",
+        //   element: <Printer />,
+        // },
+        // {
+        //   path: "appearance",
+        //   element: <Appearance />,
+        // },
       ],
     },
   ]);
