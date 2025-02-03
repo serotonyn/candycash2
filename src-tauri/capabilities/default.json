@@ -32,10 +32,9 @@
           "sidecar": true
         },
         {
-          "name": "username",
-          "cmd": "echo",
-          "args": true,
-          "sidecar": false
+          "name": "powershell",
+          "cmd": "powershell",
+          "args": true
         }
       ]
     },

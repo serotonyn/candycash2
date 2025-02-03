@@ -5,14 +5,15 @@ export const useUsername = () => {
   const [username, setUsername] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    const command = Command.create("username", ["%USERNAME%"]);
+    const command = Command.create("powershell", "$env:USERNAME");
 
     command
       .execute()
       .then((output) => {
-        console.log("output", output);
-        // const username = output.split("username=")[1].split("\n")[0];
-        // setUsername(username);
+        const stdout = output.stdout;
+        if (!stdout) return;
+        const username = stdout.substring(0, stdout.length - 2);
+        setUsername(username);
       })
       .catch((error) => {
         console.error("aslkdjalskdjlsak", error);

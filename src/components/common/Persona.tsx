@@ -82,7 +82,11 @@ export const Persona: React.FC<PersonaProps> = ({
           </Body1>
         </div>
       )}
-      {caption && <Caption1Stronger>{username}</Caption1Stronger>}
+      {caption && (
+        <Caption1Stronger style={{ textAlign: "center" }}>
+          {username}
+        </Caption1Stronger>
+      )}
     </AvatarWrap>
   );
 
