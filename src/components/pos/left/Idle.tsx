@@ -30,7 +30,6 @@ import {
 } from "@fluentui/react-icons";
 import { useGetVersion } from "@/components/hooks/useGetVersion";
 import { useCheckUpdate } from "@/components/hooks/useCheckUpdate";
-import { useUpdate } from "@/components/hooks/useUpdate";
 
 const Wrap = styled.div`
   flex: 1;
@@ -92,10 +91,13 @@ export const Idle = () => {
   const { version } = useGetVersion();
   const { check, error, loading, updateData, reset } = useCheckUpdate();
 
-  const [contentLength, setContentLength] = useState<number>(0);
-  const downloaded = useRef<number>(0);
-  // const { update, contentLength, downloaded } = useUpdate();
   const [_, setDialogOpen] = useState<boolean>(false);
+
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadedMB, setDownloadedMB] = useState(0);
+  const [contentLength, setContentLength] = useState(0);
+  const [contentLengthMB, setContentLengthMB] = useState(0);
+  const downloaded = useRef<number>(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -130,18 +132,25 @@ export const Idle = () => {
 
   const confirm = async () => {
     if (!updateData) return;
-    await updateData.download((event) => {
+    setIsDownloading(true);
+    await updateData.downloadAndInstall((event) => {
       switch (event.event) {
         case "Started":
           setContentLength(event.data.contentLength || 0);
-          console.log(`started downloading ${event.data.contentLength} bytes`);
+          if (event.data.contentLength) {
+            setContentLengthMB(
+              Number((event.data.contentLength / (1024 * 1024)).toFixed(2))
+            );
+          }
           break;
         case "Progress":
           downloaded.current += event.data.chunkLength;
-          console.log(`downloaded ${downloaded.current} from ${contentLength}`);
+          setDownloadedMB(
+            Number((downloaded.current / (1024 * 1024)).toFixed(2))
+          );
           break;
         case "Finished":
-          console.log("download finished");
+          setIsDownloading(false);
           break;
       }
     });
@@ -175,7 +184,8 @@ export const Idle = () => {
           <Button
             appearance="subtle"
             icon={loading ? <LoadingIcon /> : <Box24Regular />}
-            onClick={check}>
+            onClick={check}
+            disabled={loading}>
             Mettre à jour
           </Button>
         </div>
@@ -188,6 +198,10 @@ export const Idle = () => {
         confirm={confirm}
         cancel={cancel}
         retry={retry}
+        isDownloading={isDownloading}
+        percentage={downloaded.current / contentLength || 0}
+        downloadedMB={downloadedMB}
+        contentLengthMB={contentLengthMB}
       />
     </>
   );
@@ -201,6 +215,10 @@ interface DialogProps {
   cloudVersion: string;
   cancel: () => void;
   retry: () => void;
+  isDownloading: boolean;
+  percentage: number;
+  downloadedMB: number;
+  contentLengthMB: number;
 }
 
 export const UpdateDialog = ({
@@ -210,6 +228,10 @@ export const UpdateDialog = ({
   cloudVersion,
   cancel,
   retry,
+  isDownloading,
+  percentage,
+  downloadedMB,
+  contentLengthMB,
 }: DialogProps) => {
   return (
     <Dialog open={open}>
@@ -218,31 +240,47 @@ export const UpdateDialog = ({
         style={{ transitionDuration: "var(--durationUltraFast)" }}>
         <DialogBody>
           <DialogTitle>
-            {cloudVersion ? "Mise à jour disponible" : "Erreur"}
+            {isDownloading
+              ? "En cours de téléchargement"
+              : cloudVersion
+              ? "Mise à jour disponible"
+              : "Erreur"}
           </DialogTitle>
-          <DialogContent>
-            {cloudVersion
-              ? `La version ${cloudVersion} est disponible. Voulez-vous la télécharger et l'installer ?`
-              : error === "no-internet"
-              ? "Une erreur est survenue lors de la tentative de connexion au serveur. Veuillez vérifier votre connexion internet et réessayer."
-              : error}
-          </DialogContent>
-          <DialogActions>
-            <DialogTrigger disableButtonEnhancement>
-              <Button appearance="secondary" onClick={cancel}>
-                Annuler
-              </Button>
-            </DialogTrigger>
-            {error ? (
-              <Button appearance="primary" onClick={retry}>
-                Réessayer
-              </Button>
-            ) : (
-              <Button appearance="primary" onClick={confirm}>
-                Télécharger et installer
-              </Button>
-            )}
-          </DialogActions>
+          {isDownloading ? (
+            <>
+              <Field
+                validationMessage={`${downloadedMB} MB / ${contentLengthMB} MB`}
+                validationState="none">
+                <ProgressBar value={percentage} />
+              </Field>
+            </>
+          ) : (
+            <DialogContent>
+              {cloudVersion
+                ? `La version ${cloudVersion} est disponible. Voulez-vous la télécharger et l'installer ?`
+                : error === "no-internet"
+                ? "Une erreur est survenue lors de la tentative de connexion au serveur. Veuillez vérifier votre connexion internet et réessayer."
+                : error}
+            </DialogContent>
+          )}
+          {!isDownloading && (
+            <DialogActions>
+              <DialogTrigger disableButtonEnhancement>
+                <Button appearance="secondary" onClick={cancel}>
+                  Annuler
+                </Button>
+              </DialogTrigger>
+              {error ? (
+                <Button appearance="primary" onClick={retry}>
+                  Réessayer
+                </Button>
+              ) : (
+                <Button appearance="primary" onClick={confirm}>
+                  Télécharger et installer
+                </Button>
+              )}
+            </DialogActions>
+          )}
         </DialogBody>
       </DialogSurface>
     </Dialog>
@@ -252,7 +290,7 @@ export const UpdateDialog = ({
 export const Progress = (props: Partial<ProgressBarProps>) => {
   return (
     <Field validationMessage="Default ProgressBar" validationState="none">
-      <ProgressBar {...props} value={0.5} />
+      <ProgressBar {...props} />
     </Field>
   );
 };
