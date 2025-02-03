@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { UsersResponse } from "@/pocketbase-types";
-// import { useAuth } from "@/providers/UserProvider";
 import client from "@/services/client";
 import styled from "@emotion/styled";
 import {
-  Body1,
   Caption1Stronger,
   Subtitle2Stronger,
   tokens,
@@ -37,28 +34,14 @@ const AvatarWrap = styled.div<{ totaux?: boolean }>`
 interface PersonaProps {
   profilePage?: boolean;
   totauxPage?: boolean;
-  caption?: boolean;
 }
 
 export const Persona: React.FC<PersonaProps> = ({
   profilePage,
   totauxPage,
-  caption,
 }) => {
   const navigate = useNavigate();
-  const [image, setImage] = useState<string | undefined>(undefined);
   const { username } = useUsername();
-  // const { currentUser } = useAuth();
-
-  const getUrl = async (currentUser: UsersResponse) => {
-    return client?.files.getURL(currentUser, currentUser.avatar);
-  };
-
-  // useEffect(() => {
-  //   if (!currentUser) return;
-
-  //   getUrl(currentUser).then(setImage);
-  // }, [currentUser]);
 
   const personaClicked = async () => {
     if (totauxPage) {
@@ -70,21 +53,20 @@ export const Persona: React.FC<PersonaProps> = ({
 
   const personaContent = (
     <AvatarWrap totaux={totauxPage}>
-      <AvatarImage image={image} />
+      <AvatarImage />
 
-      {!totauxPage && (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <Subtitle2Stronger>
-            {client?.authStore?.model?.name}
-          </Subtitle2Stronger>
-          {/* <Body1>
-            {client?.authStore?.model?.isAdmin ? "Administrateur" : "Vendeur"}
-          </Body1> */}
-        </div>
-      )}
-      <Caption1Stronger style={{ textAlign: "center" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {!totauxPage ? (
+          <Subtitle2Stronger>{username}</Subtitle2Stronger>
+        ) : (
+          <Caption1Stronger style={{ textAlign: "center" }}>
+            {username}
+          </Caption1Stronger>
+        )}
+      </div>
+      {/* {!caption &&<Caption1Stronger style={{ textAlign: "center" }}>
         {username}
-      </Caption1Stronger>
+      </>} */}
     </AvatarWrap>
   );
 

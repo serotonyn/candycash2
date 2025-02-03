@@ -3,10 +3,8 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Categories from "@/assets/icons/categories.png";
 import LowPrice from "@/assets/icons/low_price.svg";
 import Perso from "@/assets/icons/personalization.png";
-import Printer from "@/assets/icons/printer.png";
 import { BackButton } from "@/components/common/BackButton";
 import { Persona } from "@/components/common/Persona";
-import client from "@/services/client";
 import styled from "@emotion/styled";
 import { Image, Tab, TabList, tokens } from "@fluentui/react-components";
 
@@ -67,9 +65,6 @@ const RightWrap = styled.div`
 `;
 
 const Options = () => {
-  const isAdminLogged =
-    !!client?.authStore?.token && client?.authStore?.model?.isAdmin === true;
-
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const subPaths = [
@@ -88,23 +83,16 @@ const Options = () => {
   const isSelected = (value: string) => value === selected;
 
   const renderTabs = () => {
-    const canAccess = (isAdminOnly: boolean) => {
-      // return isAdminOnly ? (isAdminLogged ? true : false) : true;
-      return true;
-    };
-
     return subPaths.map((subPath) => {
       return (
-        canAccess(!!subPath.isAdminOnly) && (
-          <StyledTab
-            key={subPath.key}
-            icon={<Image src={subPath.Icon} width={22} height={22} />}
-            value={subPath.key}
-            selected={isSelected(subPath.key)}
-            onClick={() => navigate(`/options/${subPath.key}`)}>
-            {subPath.label}
-          </StyledTab>
-        )
+        <StyledTab
+          key={subPath.key}
+          icon={<Image src={subPath.Icon} width={22} height={22} />}
+          value={subPath.key}
+          selected={isSelected(subPath.key)}
+          onClick={() => navigate(`/options/${subPath.key}`)}>
+          {subPath.label}
+        </StyledTab>
       );
     });
   };

@@ -1,17 +1,15 @@
-// import { print_file } from 'tauri-plugin-printer';
-
 import { MyDocument } from "@/components/pos/Cloture";
 import { Collections } from "@/pocketbase-types";
-// import { useAuth } from '@/providers/UserProvider';
 import client from "@/services/client";
 import { pdf } from "@react-pdf/renderer";
 import { join } from "@tauri-apps/api/path";
 
 import { getDocumentsPath, printPdf, writePdf } from "../pos/helpers";
 import { TopSale } from "./useGetTopSales";
+import { useUsername } from "./useUsername";
 
 export const usePrintCloture = () => {
-  // const { currentUser } = useAuth();
+  const { username } = useUsername();
 
   const print = async (
     startDate: string,
@@ -24,7 +22,7 @@ export const usePrintCloture = () => {
     try {
       const blob = await pdf(
         MyDocument({
-          // username: curren tUser?.username,
+          username,
           startDate,
           endDate,
           fondDeCaisse,

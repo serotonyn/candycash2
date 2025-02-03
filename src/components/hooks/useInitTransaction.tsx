@@ -10,11 +10,13 @@ import client from "@/services/client";
 import { useGetActiveCloture } from "./useGetActiveCloture";
 import { manageError } from "@/services/manage-error";
 import { ClientResponseError } from "pocketbase";
+import { useUsername } from "./useUsername";
 
 export const useInitTransaction = () => {
   const transaction = usePosStore((state) => state.transaction);
   const setTransaction = usePosStore((state) => state.setTransaction);
   useGetActiveCloture({ requestKey: "init-transaction" });
+  const { getUsername } = useUsername();
 
   let transactionLocal: Partial<TransactionsResponse> | undefined =
     transaction || undefined;
@@ -47,7 +49,7 @@ export const useInitTransaction = () => {
       if (!transaction) {
         transactionLocal = {
           sequence: await getSequenceTransaction(),
-          user: client?.authStore.model?.id,
+          username: await getUsername(),
           grandTotal: 0,
           paid: 0,
           amountDue: 0,

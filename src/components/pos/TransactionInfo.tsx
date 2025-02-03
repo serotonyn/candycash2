@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import LowPrice from "@/assets/icons/low_price.svg";
 import { TransactionsResponse } from "@/pocketbase-types";
-import client from "@/services/client";
 import styled from "@emotion/styled";
 import {
   Badge,
@@ -63,8 +62,6 @@ const BContainer = styled.div`
 `;
 
 export const TransactionInfo = () => {
-  const isAdminLogged =
-    !!client?.authStore?.token && client?.authStore?.model?.isAdmin === true;
   const navigate = useNavigate();
 
   const setOrderItems = usePosStore((state) => state.setOrderItems);
@@ -184,14 +181,12 @@ export const TransactionInfo = () => {
         <Button icon={<Dismiss16Filled />} size="large" onClick={onClose}>
           Fermer
         </Button>
-        {isAdminLogged && (
-          <Button
-            icon={<Image src={LowPrice} width={20} />}
-            size="large"
-            onClick={goSales}>
-            Voir Ventes
-          </Button>
-        )}
+        <Button
+          icon={<Image src={LowPrice} width={20} />}
+          size="large"
+          onClick={goSales}>
+          Voir Ventes
+        </Button>
         <Button
           icon={<Delete16Filled />}
           size="large"

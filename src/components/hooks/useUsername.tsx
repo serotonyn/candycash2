@@ -4,23 +4,30 @@ import { useEffect, useState } from "react";
 export const useUsername = () => {
   const [username, setUsername] = useState<string | undefined>(undefined);
 
-  useEffect(() => {
+  const getUsername = async () => {
     const command = Command.create("powershell", "$env:USERNAME");
 
-    command
+    return command
       .execute()
       .then((output) => {
         const stdout = output.stdout;
         if (!stdout) return;
         const username = stdout.substring(0, stdout.length - 2);
         setUsername(username);
+        return username;
       })
       .catch((error) => {
         console.error("aslkdjalskdjlsak", error);
+        throw error;
       });
+  };
+
+  useEffect(() => {
+    getUsername();
   }, []);
 
   return {
     username,
+    getUsername,
   };
 };

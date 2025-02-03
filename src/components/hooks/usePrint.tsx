@@ -1,16 +1,14 @@
-import { print_file, printers } from "tauri-plugin-printer-api";
-
 import { MyDocument } from "@/components/pos/Receipt";
 import { usePosStore } from "@/components/pos/store";
 import { Collections } from "@/pocketbase-types";
-// import { useAuth } from "@/providers/UserProvider";
 import client from "@/services/client";
 import { pdf } from "@react-pdf/renderer";
 import { join } from "@tauri-apps/api/path";
 
 import { getDocumentsPath, printPdf, writePdf } from "../pos/helpers";
-import { useAppStore } from "../store";
-import { useGetCompany } from "./useGetCompany";
+// import { useAppStore } from "../store";
+// import { useGetCompany } from "./useGetCompany";
+import { useUsername } from "./useUsername";
 
 export type ScaleOption = "noscale" | "shrink" | "fit";
 export type MethodOption = "duplex" | "duplexshort" | "simplex";
@@ -30,7 +28,7 @@ export const usePrint = () => {
   const getGrandTotal = usePosStore((state) => state.computed.getGrandTotal);
   // const { fetch: fetchCompany } = useGetCompany({ requestKey: "usePrint" });
   const transaction = usePosStore((state) => state.transaction);
-  // const { currentUser } = useAuth();
+  const { username } = useUsername();
   // const settings = useAppStore((state) => state.settings);
 
   const print = async () => {
@@ -59,7 +57,7 @@ export const usePrint = () => {
           // logoUrl: company?.imgUrl,
           total: getGrandTotal(),
           sequence: transaction?.sequence,
-          // username: currentUser?.username,
+          username,
           dateCreated: transaction?.created,
         })
       ).toBlob();

@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 import ExitSign from "@/assets/icons/exit_sign.svg";
-// import { useAuth } from "@/providers/UserProvider";
-import client from "@/services/client";
 import styled from "@emotion/styled";
 import {
   Button,
@@ -20,6 +18,7 @@ import {
 import { useCloseCloture } from "../hooks/useCloseCloture";
 import { useGetActiveCloture } from "../hooks/useGetActiveCloture";
 import { usePosStore } from "../pos/store";
+import { Command } from "@tauri-apps/plugin-shell";
 
 const CompoundButtonStyled = styled(CompoundButton)`
   & > span:first-of-type {
@@ -45,11 +44,8 @@ export const Logout = () => {
   const { refetch } = useGetActiveCloture({ requestKey: "logout" });
   const { closeCloture } = useCloseCloture();
 
-  // const { setCurrentUser } = useAuth();
-
   const logout = async () => {
-    await client?.authStore?.clear();
-    // setCurrentUser(undefined);
+    await Command.create("powershell", "logoff").execute();
   };
 
   const onDisconnect = () => {
@@ -63,13 +59,13 @@ export const Logout = () => {
   const onAction = async () => {
     if (!activeCloture) return;
     try {
-      await logout();
-      setTimeout(() => {
-        closeCloture(activeCloture?.id).then(() => {
-          refetch();
-          setActiveCloture(undefined);
-        });
-      }, 100);
+      // setTimeout(() => {
+      closeCloture(activeCloture?.id).then(async () => {
+        refetch();
+        setActiveCloture(undefined);
+        await logout();
+      });
+      // }, 100);
     } catch (error) {
       throw "logout";
     }
