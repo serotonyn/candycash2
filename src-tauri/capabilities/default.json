@@ -8,6 +8,7 @@
   "permissions": [
     "core:default",
     "opener:default",
+    "shell:default",
     {
       "identifier": "shell:allow-execute",
       "allow": [
@@ -29,6 +30,12 @@
             "doc.pdf"
           ],
           "sidecar": true
+        },
+        {
+          "name": "username",
+          "cmd": "echo",
+          "args": true,
+          "sidecar": false
         }
       ]
     },

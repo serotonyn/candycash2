@@ -13,6 +13,7 @@ import {
 } from "@fluentui/react-components";
 
 import { AvatarImage } from "./Avatar";
+import { useUsername } from "../hooks/useUsername";
 
 const PersonaWrap = styled.div`
   padding: ${tokens.spacingHorizontalS} ${tokens.spacingHorizontalM};
@@ -46,6 +47,7 @@ export const Persona: React.FC<PersonaProps> = ({
 }) => {
   const navigate = useNavigate();
   const [image, setImage] = useState<string | undefined>(undefined);
+  const { username } = useUsername();
   // const { currentUser } = useAuth();
 
   const getUrl = async (currentUser: UsersResponse) => {
@@ -80,7 +82,7 @@ export const Persona: React.FC<PersonaProps> = ({
           </Body1>
         </div>
       )}
-      {/* {caption && <Caption1Stronger>{currentUser?.name}</Caption1Stronger>} */}
+      {caption && <Caption1Stronger>{username}</Caption1Stronger>}
     </AvatarWrap>
   );
 
