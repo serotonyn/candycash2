@@ -1,10 +1,8 @@
-import { usePosStore } from '@/components/pos/store';
-import { Collections } from '@/pocketbase-types';
-import client from '@/services/client';
+import { usePosStore } from "@/components/pos/store";
 
-import { useInitTransaction } from './useInitTransaction';
-import { useOpenCashier } from './useOpenCashier';
-import { useSave } from './useSave';
+import { useInitTransaction } from "./useInitTransaction";
+import { useOpenCashier } from "./useOpenCashier";
+import { useSave } from "./useSave";
 
 export const usePayWithNoPrint = () => {
   const reset = usePosStore((state) => state.reset);
@@ -24,10 +22,7 @@ export const usePayWithNoPrint = () => {
         reset();
         init();
       } catch (err) {
-        client?.collection(Collections.Logs).create({
-          file: 'usePayWithNoPrint',
-          message: err,
-        })
+        throw err;
       }
     }
   };

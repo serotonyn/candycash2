@@ -32,10 +32,7 @@ export const useGetNextProductCode = () => {
       setNextProductCode(product?.code + 1);
     } catch (error) {
       manageError(error as ClientResponseError);
-      client?.collection(Collections.Logs).create({
-        file: "useGetNextProductCode",
-        message: error,
-      });
+      throw err;
     }
   };
 

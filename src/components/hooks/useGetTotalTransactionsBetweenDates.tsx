@@ -1,6 +1,6 @@
-import { Collections } from '@/pocketbase-types';
-import client from '@/services/client';
-import { TransactionExpanded } from '@/types/expanded';
+import { Collections } from "@/pocketbase-types";
+import client from "@/services/client";
+import { TransactionExpanded } from "@/types/expanded";
 
 export const useGetTotalTransactionsBetweenDates = () => {
   const getTotal = async (startDate: string) => {
@@ -16,11 +16,7 @@ export const useGetTotalTransactionsBetweenDates = () => {
         0
       );
     } catch (err) {
-      await client?.collection(Collections.Logs).create({
-        file: 'useGetTotalTransactionsBetweenDates',
-        message: err,
-      })
-      return undefined;
+      throw err;
     }
   };
 

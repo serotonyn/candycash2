@@ -43,10 +43,7 @@ export const useGetProducts = ({ filter, expand, requestKey }: OwnProps) => {
 
       setProducts(productsWithImageUrls || []);
     } catch (error) {
-      await client?.collection(Collections.Logs).create({
-        file: "useGetProducts",
-        message: error,
-      });
+      throw err;
       manageError(error as ClientResponseError);
       return [];
     }

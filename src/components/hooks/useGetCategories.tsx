@@ -41,10 +41,7 @@ export const useGetCategories = ({ filter, expand, requestKey }: OwnProps) => {
 
       setCategories(categoriesWithImageUrls || []);
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "useGetCategories",
-        message: err,
-      });
+      throw err;
     }
   };
 

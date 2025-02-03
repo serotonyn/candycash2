@@ -78,10 +78,7 @@ export const useSave = () => {
           });
         }
       } catch (err) {
-        client?.collection(Collections.Logs).create({
-          file: "useSave",
-          message: err,
-        });
+        throw err;
         throw err;
       }
     }

@@ -70,10 +70,7 @@ export const useGetQuantities = ({
         return [];
       }
     } catch (err) {
-      await client?.collection(Collections.Logs).create({
-        file: "useGetTopSales",
-        message: err,
-      });
+      throw err;
       return [];
     }
   };

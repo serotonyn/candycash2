@@ -9,10 +9,7 @@ export const useCreateCloture = () => {
         ...data,
       });
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "useCreateCloture",
-        message: err,
-      });
+      throw err;
     }
   };
   return { create };

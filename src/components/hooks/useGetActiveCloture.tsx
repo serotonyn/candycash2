@@ -25,10 +25,7 @@ export const useGetActiveCloture = ({ requestKey }: OwnProps) => {
       setActiveCloture(cloture);
     } catch (err) {
       setActiveCloture(undefined);
-      await client?.collection(Collections.Logs).create({
-        file: "useGetActiveCloture",
-        message: err,
-      });
+      throw err;
       manageError(err as ClientResponseError);
       return {};
     } finally {

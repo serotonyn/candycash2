@@ -6,10 +6,7 @@ export const useDeleteTransaction = () => {
     try {
       await client?.collection(Collections.Transactions).delete(transactionId);
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "useDeleteTransaction",
-        message: err,
-      });
+      throw err;
     }
   };
 

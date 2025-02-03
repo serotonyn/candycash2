@@ -58,10 +58,7 @@ export const useInitTransaction = () => {
         setTransaction(transactionLocal);
       }
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "useInitTransaction",
-        message: err,
-      });
+      throw err;
     }
   };
 

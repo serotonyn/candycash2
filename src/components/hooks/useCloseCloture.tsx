@@ -10,10 +10,7 @@ export const useCloseCloture = () => {
           active: false,
         });
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "useCloseCloture",
-        message: err,
-      });
+      throw err;
     }
   };
   return { closeCloture };

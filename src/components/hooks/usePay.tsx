@@ -1,6 +1,4 @@
 import { usePosStore } from "@/components/pos/store";
-import { Collections } from "@/pocketbase-types";
-import client from "@/services/client";
 
 import { useInitTransaction } from "./useInitTransaction";
 import { usePrint } from "./usePrint";
@@ -25,10 +23,7 @@ export const usePay = () => {
         init();
         setIsConffettis(true);
       } catch (err) {
-        client?.collection(Collections.Logs).create({
-          file: "usePay",
-          message: err,
-        });
+        throw err;
       }
     }
   };

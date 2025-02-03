@@ -45,10 +45,7 @@ export const useGetCompany = ({ filter, expand, requestKey }: OwnProps) => {
       }
     } catch (err) {
       manageError(err as ClientResponseError);
-      await client?.collection(Collections.Logs).create({
-        file: "useGetCompany",
-        message: err,
-      });
+      throw err;
       return [];
     }
   };

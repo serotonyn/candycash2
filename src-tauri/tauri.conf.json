@@ -27,7 +27,11 @@
       }
     },
     "externalBin": [
-      "bin/pocketbase"
+      "bin/pocketbase",
+      "bin/sumatra"
+    ],
+    "resources": [
+      "pocketbase/"
     ],
     "active": true,
     "targets": [

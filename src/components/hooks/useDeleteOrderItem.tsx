@@ -1,7 +1,7 @@
-import { usePosStore } from '@/components/pos/store';
-import { Collections } from '@/pocketbase-types';
-import client from '@/services/client';
-import { OrderItemExpanded } from '@/types/expanded';
+import { usePosStore } from "@/components/pos/store";
+import { Collections } from "@/pocketbase-types";
+import client from "@/services/client";
+import { OrderItemExpanded } from "@/types/expanded";
 
 export const useDeleteOrderItem = () => {
   const selectedIndex = usePosStore((state) => state.selectedIndex);
@@ -20,34 +20,31 @@ export const useDeleteOrderItem = () => {
       setOrderItems(newOrderItems);
       setSelectedIndex(undefined);
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: 'useDeleteOrderItem',
-        message: err,
-      })
+      throw err;
     }
   };
 
   const deleteOrderItemWhenHistory = async (item: OrderItemExpanded) => {
     try {
-      console.log(transaction)
+      console.log(transaction);
       if (orderItems.length === 1) {
-        await client?.collection(Collections.Transactions).delete(item.transaction)
-        reset()
+        await client
+          ?.collection(Collections.Transactions)
+          .delete(item.transaction);
+        reset();
       } else {
-        await client?.collection(Collections.OrderItems).delete(item.id)
-        const fetchedOrderItems = await client?.collection(Collections.OrderItems).getFullList({
-          filter: `transaction = "${item.transaction}"`,
-        })
-        setOrderItems(fetchedOrderItems as Partial<OrderItemExpanded>[])
+        await client?.collection(Collections.OrderItems).delete(item.id);
+        const fetchedOrderItems = await client
+          ?.collection(Collections.OrderItems)
+          .getFullList({
+            filter: `transaction = "${item.transaction}"`,
+          });
+        setOrderItems(fetchedOrderItems as Partial<OrderItemExpanded>[]);
       }
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: 'deleteOrderItemWhenHistory',
-        message: err,
-      })
+      throw err;
     }
-
-  }
+  };
 
   return { deleteOrderItem, deleteOrderItemWhenHistory };
 };

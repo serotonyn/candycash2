@@ -65,10 +65,7 @@ export const useGetTransactions = ({
         });
       setTransactions(transactions || []);
     } catch (err) {
-      await client?.collection(Collections.Logs).create({
-        file: "useGetTransactions",
-        message: err,
-      });
+      throw err;
       manageError(err as ClientResponseError);
       return [];
     } finally {
@@ -144,10 +141,7 @@ export const useGetTransaction = ({
         },
       });
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "useGetTransaction",
-        message: err,
-      });
+      throw err;
     }
   };
 

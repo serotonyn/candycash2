@@ -71,10 +71,7 @@ export const useAddOrderItem = () => {
       pushItem(orderItem);
       setLeftShows("CURRENT_TRANSACTION");
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "useAddOrderItem",
-        message: err,
-      });
+      throw err;
     }
   };
 

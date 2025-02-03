@@ -1,12 +1,9 @@
 import { MyDocument } from "@/components/pos/Receipt";
 import { usePosStore } from "@/components/pos/store";
-import { Collections } from "@/pocketbase-types";
-import client from "@/services/client";
 import { pdf } from "@react-pdf/renderer";
 import { join } from "@tauri-apps/api/path";
 
 import { getDocumentsPath, printPdf, writePdf } from "../pos/helpers";
-// import { useAppStore } from "../store";
 // import { useGetCompany } from "./useGetCompany";
 import { useUsername } from "./useUsername";
 
@@ -29,26 +26,9 @@ export const usePrint = () => {
   // const { fetch: fetchCompany } = useGetCompany({ requestKey: "usePrint" });
   const transaction = usePosStore((state) => state.transaction);
   const { username } = useUsername();
-  // const settings = useAppStore((state) => state.settings);
 
   const print = async () => {
     try {
-      // if (!settings) throw "no settings";
-
-      const settingss = {
-        method: "simplex" as MethodOption,
-        paper: "A8" as PaperOption,
-        scale: "noscale" as ScaleOption,
-        repeat: 1, // total copies
-        orientation: "portrait" as OrientationOption,
-        // range: "1,2,3"    // print page 1,2,3
-        range: {
-          // print page 1 - 3
-          from: 1,
-          to: 2,
-        },
-      };
-
       // const company = await fetchCompany();
 
       const blob = await pdf(
@@ -72,10 +52,7 @@ export const usePrint = () => {
 
       await printPdf();
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "usePrint",
-        message: err,
-      });
+      throw err;
     }
   };
 

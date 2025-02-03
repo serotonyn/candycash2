@@ -60,11 +60,7 @@ export const useLazyGetTransaction = () => {
         } || undefined
       );
     } catch (err) {
-      await client?.collection(Collections.Logs).create({
-        file: "useLazyGetTransaction",
-        message: err,
-      });
-      return undefined;
+      throw err;
     }
   };
 

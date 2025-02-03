@@ -42,10 +42,7 @@ export const usePrintCloture = () => {
 
       await printPdf();
     } catch (err) {
-      client?.collection(Collections.Logs).create({
-        file: "usePrintCloture",
-        message: err,
-      });
+      throw err;
     }
   };
 

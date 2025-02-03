@@ -14,13 +14,10 @@ export enum Collections {
 	Categories = "categories",
 	Clotures = "clotures",
 	Company = "company",
-	ComposeImages = "compose_images",
-	Logs = "logs",
 	OrderItems = "orderItems",
 	Pdfs = "pdfs",
 	Products = "products",
 	Sequences = "sequences",
-	Settings = "settings",
 	Transactions = "transactions",
 }
 
@@ -121,22 +118,6 @@ export type CompanyRecord = {
 	updated?: IsoDateString
 }
 
-export type ComposeImagesRecord = {
-	bodypart?: string
-	created?: IsoDateString
-	id: string
-	img?: string
-	updated?: IsoDateString
-}
-
-export type LogsRecord = {
-	created?: IsoDateString
-	file?: string
-	id: string
-	message?: string
-	updated?: IsoDateString
-}
-
 export type OrderItemsRecord = {
 	category?: RecordIdString
 	created?: IsoDateString
@@ -188,16 +169,6 @@ export type SequencesRecord = {
 	updated?: IsoDateString
 }
 
-export type SettingsRecord = {
-	created?: IsoDateString
-	id: string
-	printer_method?: string
-	printer_orientation?: string
-	printer_paper?: string
-	printer_scale?: string
-	updated?: IsoDateString
-}
-
 export enum TransactionsStatusOptions {
 	"NOT_PAID" = "NOT_PAID",
 	"PARTIALLY_PAID" = "PARTIALLY_PAID",
@@ -227,13 +198,10 @@ export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> &
 export type CategoriesResponse<Texpand = unknown> = Required<CategoriesRecord> & BaseSystemFields<Texpand>
 export type CloturesResponse<Texpand = unknown> = Required<CloturesRecord> & BaseSystemFields<Texpand>
 export type CompanyResponse<Texpand = unknown> = Required<CompanyRecord> & BaseSystemFields<Texpand>
-export type ComposeImagesResponse<Texpand = unknown> = Required<ComposeImagesRecord> & BaseSystemFields<Texpand>
-export type LogsResponse<Texpand = unknown> = Required<LogsRecord> & BaseSystemFields<Texpand>
 export type OrderItemsResponse<Texpand = unknown> = Required<OrderItemsRecord> & BaseSystemFields<Texpand>
 export type PdfsResponse<Texpand = unknown> = Required<PdfsRecord> & BaseSystemFields<Texpand>
 export type ProductsResponse<Texpand = unknown> = Required<ProductsRecord> & BaseSystemFields<Texpand>
 export type SequencesResponse<Texpand = unknown> = Required<SequencesRecord> & BaseSystemFields<Texpand>
-export type SettingsResponse<Texpand = unknown> = Required<SettingsRecord> & BaseSystemFields<Texpand>
 export type TransactionsResponse<Texpand = unknown> = Required<TransactionsRecord> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -247,13 +215,10 @@ export type CollectionRecords = {
 	categories: CategoriesRecord
 	clotures: CloturesRecord
 	company: CompanyRecord
-	compose_images: ComposeImagesRecord
-	logs: LogsRecord
 	orderItems: OrderItemsRecord
 	pdfs: PdfsRecord
 	products: ProductsRecord
 	sequences: SequencesRecord
-	settings: SettingsRecord
 	transactions: TransactionsRecord
 }
 
@@ -266,13 +231,10 @@ export type CollectionResponses = {
 	categories: CategoriesResponse
 	clotures: CloturesResponse
 	company: CompanyResponse
-	compose_images: ComposeImagesResponse
-	logs: LogsResponse
 	orderItems: OrderItemsResponse
 	pdfs: PdfsResponse
 	products: ProductsResponse
 	sequences: SequencesResponse
-	settings: SettingsResponse
 	transactions: TransactionsResponse
 }
 
@@ -288,12 +250,9 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: 'categories'): RecordService<CategoriesResponse>
 	collection(idOrName: 'clotures'): RecordService<CloturesResponse>
 	collection(idOrName: 'company'): RecordService<CompanyResponse>
-	collection(idOrName: 'compose_images'): RecordService<ComposeImagesResponse>
-	collection(idOrName: 'logs'): RecordService<LogsResponse>
 	collection(idOrName: 'orderItems'): RecordService<OrderItemsResponse>
 	collection(idOrName: 'pdfs'): RecordService<PdfsResponse>
 	collection(idOrName: 'products'): RecordService<ProductsResponse>
 	collection(idOrName: 'sequences'): RecordService<SequencesResponse>
-	collection(idOrName: 'settings'): RecordService<SettingsResponse>
 	collection(idOrName: 'transactions'): RecordService<TransactionsResponse>
 }
