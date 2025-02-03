@@ -75,7 +75,7 @@ const Totaux = () => {
   return (
     <Wrap>
       <Left>
-        <Persona totauxPage caption />
+        <Persona totauxPage />
       </Left>
       {leftShows !== "IDLE" ? (
         <>

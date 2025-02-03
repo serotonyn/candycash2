@@ -1,6 +1,4 @@
 import { usePosStore } from "@/components/pos/store";
-import { Collections } from "@/pocketbase-types";
-import client from "@/services/client";
 import { OrderItemExpanded, ProductsExpanded } from "@/types/expanded";
 
 import { calculateOrderItemPrice } from "../pos/helpers";

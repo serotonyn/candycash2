@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import client from "@/services/client";
 import styled from "@emotion/styled";
 import {
   Caption1Stronger,

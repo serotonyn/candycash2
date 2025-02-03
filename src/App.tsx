@@ -27,45 +27,45 @@ function App() {
   // const [greetMsg, setGreetMsg] = useState("");
   // const [version, setVersion] = useState("");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    // setGreetMsg(await invoke("greet", { name }));
-    // if (!(await isEnabled())) {
-    //   await enable();
-    // }
-    // console.log(`registered for autostart? ${await isEnabled()}`);
-    // const update = await check();
-    // setGreetMsg(update?.version || "--");
-    // if (update) {
-    //   setGreetMsg(
-    //     `found update ${update.version} from ${update.date} with notes ${update.body}`
-    //   );
-    //   let downloaded = 0;
-    //   let contentLength = 0;
-    //   // alternatively we could also call update.download() and update.install() separately
-    //   await update.downloadAndInstall((event) => {
-    //     switch (event.event) {
-    //       case "Started":
-    //         contentLength = event.data.contentLength || 0;
-    //         console.log(
-    //           `started downloading ${event.data.contentLength} bytes`
-    //         );
-    //         break;
-    //       case "Progress":
-    //         downloaded += event.data.chunkLength;
-    //         console.log(`downloaded ${downloaded} from ${contentLength}`);
-    //         break;
-    //       case "Finished":
-    //         console.log("download finished");
-    //         break;
-    //     }
-    //   });
-    //   console.log("update installed");
-    //   await relaunch();
-    // } else {
-    //   setGreetMsg("no update found");
-    // }
-  }
+  // async function greet() {
+  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+  // setGreetMsg(await invoke("greet", { name }));
+  // if (!(await isEnabled())) {
+  //   await enable();
+  // }
+  // console.log(`registered for autostart? ${await isEnabled()}`);
+  // const update = await check();
+  // setGreetMsg(update?.version || "--");
+  // if (update) {
+  //   setGreetMsg(
+  //     `found update ${update.version} from ${update.date} with notes ${update.body}`
+  //   );
+  //   let downloaded = 0;
+  //   let contentLength = 0;
+  //   // alternatively we could also call update.download() and update.install() separately
+  //   await update.downloadAndInstall((event) => {
+  //     switch (event.event) {
+  //       case "Started":
+  //         contentLength = event.data.contentLength || 0;
+  //         console.log(
+  //           `started downloading ${event.data.contentLength} bytes`
+  //         );
+  //         break;
+  //       case "Progress":
+  //         downloaded += event.data.chunkLength;
+  //         console.log(`downloaded ${downloaded} from ${contentLength}`);
+  //         break;
+  //       case "Finished":
+  //         console.log("download finished");
+  //         break;
+  //     }
+  //   });
+  //   console.log("update installed");
+  //   await relaunch();
+  // } else {
+  //   setGreetMsg("no update found");
+  // }
+  // }
 
   return (
     <PageWrapper id="main">

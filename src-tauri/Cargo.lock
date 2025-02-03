@@ -423,7 +423,7 @@ dependencies = [
 
 [[package]]
 name = "candycash"
-version = "0.1.8"
+version = "0.1.9"
 dependencies = [
  "fs_extra",
  "serde",

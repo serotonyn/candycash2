@@ -43,7 +43,6 @@ export const useGetProducts = ({ filter, expand, requestKey }: OwnProps) => {
 
       setProducts(productsWithImageUrls || []);
     } catch (error) {
-      throw err;
       manageError(error as ClientResponseError);
       return [];
     }
