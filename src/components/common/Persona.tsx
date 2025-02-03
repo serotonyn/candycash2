@@ -77,16 +77,14 @@ export const Persona: React.FC<PersonaProps> = ({
           <Subtitle2Stronger>
             {client?.authStore?.model?.name}
           </Subtitle2Stronger>
-          <Body1>
+          {/* <Body1>
             {client?.authStore?.model?.isAdmin ? "Administrateur" : "Vendeur"}
-          </Body1>
+          </Body1> */}
         </div>
       )}
-      {caption && (
-        <Caption1Stronger style={{ textAlign: "center" }}>
-          {username}
-        </Caption1Stronger>
-      )}
+      <Caption1Stronger style={{ textAlign: "center" }}>
+        {username}
+      </Caption1Stronger>
     </AvatarWrap>
   );
 
