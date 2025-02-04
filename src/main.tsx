@@ -9,22 +9,22 @@ import App from "./App.tsx";
 
 import { AppTheme } from "./constants/theme.ts";
 import { AppThemeProvider } from "./providers/ThemeProvider.tsx";
-import { checkMachineGuid } from "./components/hooks/useCheckMachineGuid";
 import { initAutostart } from "./components/hooks/useAutostart.tsx";
-import { message } from "@tauri-apps/plugin-dialog";
+// import { checkMachineGuid } from "./components/hooks/useCheckMachineGuid";
+// import { message } from "@tauri-apps/plugin-dialog";
 
 dayjs.locale("fr");
 
-const guid1 = "";
-const { machineGuid } = await checkMachineGuid();
+// const guid1 = "";
+// const { machineGuid } = await checkMachineGuid();
 
-if (machineGuid !== guid1) {
-  await message("No internet connection", {
-    title: "CandyCash",
-    kind: "error",
-  });
-  throw new Error("No internet connection");
-}
+// if (machineGuid !== guid1) {
+//   await message("No internet connection", {
+//     title: "CandyCash",
+//     kind: "error",
+//   });
+//   throw new Error("No internet connection");
+// }
 
 initAutostart();
 
