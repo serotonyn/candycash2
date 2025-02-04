@@ -17,7 +17,6 @@ export const useUsername = () => {
         return username;
       })
       .catch((error) => {
-        console.error("aslkdjalskdjlsak", error);
         throw error;
       });
   };
