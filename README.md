@@ -1,5 +1,6 @@
 # Publish steps
 
+- add Machine guid (use `Get-ItemProperty -Path HKLM:\\SOFTWARE\\Microsoft\\Cryptography | Select-Object -ExpandProperty MachineGuid`)
 - password for private key is `123`
 - bump version (use `pnpm run bump-version`)
 - build app (use `pnpm run build`)

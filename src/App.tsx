@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import { Routes } from "./components/Routes";
-import { useAutostart } from "./components/hooks/useAutostart";
-import { useCheckMachineGuid } from "./components/hooks/useCheckMachineGuid";
 
 const PageWrapper = styled.div`
   & div.fui-DialogSurface__backdrop {
@@ -12,8 +10,6 @@ const PageWrapper = styled.div`
 `;
 
 function App() {
-  useAutostart();
-  useCheckMachineGuid();
   return (
     <PageWrapper id="main">
       <Routes />

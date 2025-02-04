@@ -6,6 +6,7 @@ use tauri_plugin_shell::ShellExt;
 
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_single_instance::init(|_app, _args, _cwd| {}))
@@ -72,25 +73,22 @@ pub fn run() {
 
 #[tauri::command]
 async fn print(app: tauri::AppHandle) {
-    let sidecar_command = app
-        .shell()
-        .sidecar("sumatra")
-        .unwrap();
+    let sidecar_command = app.shell().sidecar("sumatra").unwrap();
 
     let (mut rx, mut _child) = sidecar_command.spawn().unwrap();
 
     std::thread::spawn(move || {
-                while let Some(output) = rx.blocking_recv() {
-                    // Convert CommandEvent to bytes
-                    let bytes = match output {
-                        CommandEvent::Stdout(data) => data,
-                        CommandEvent::Stderr(data) => data,
-                        _ => continue, // Skip other event types
-                    };
+        while let Some(output) = rx.blocking_recv() {
+            // Convert CommandEvent to bytes
+            let bytes = match output {
+                CommandEvent::Stdout(data) => data,
+                CommandEvent::Stderr(data) => data,
+                _ => continue, // Skip other event types
+            };
 
-                    // Convert bytes to string
-                    let string = std::str::from_utf8(&bytes).unwrap();
-                    dbg!(string);
-                }
-            });
+            // Convert bytes to string
+            let string = std::str::from_utf8(&bytes).unwrap();
+            dbg!(string);
+        }
+    });
 }

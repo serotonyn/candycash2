@@ -1,7 +1,6 @@
 import { Command } from "@tauri-apps/plugin-shell";
-import { useEffect } from "react";
 
-export const useCheckMachineGuid = () => {
+export const checkMachineGuid = async () => {
   const checkMachineGuid = async () => {
     const command = await Command.create(
       "powershell",
@@ -12,16 +11,15 @@ export const useCheckMachineGuid = () => {
       .execute()
       .then((output) => {
         const stdout = output.stdout;
-        console.log("*******", stdout);
         if (!stdout) return;
-        console.log(stdout);
+        return stdout;
       })
-      .catch((error) => {
-        throw error;
+      .catch(() => {
+        return "";
       });
   };
 
-  useEffect(() => {
-    checkMachineGuid();
-  }, []);
+  return {
+    machineGuid: await checkMachineGuid(),
+  };
 };
