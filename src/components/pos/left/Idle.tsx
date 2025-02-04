@@ -30,6 +30,7 @@ import {
 } from "@fluentui/react-icons";
 import { useGetVersion } from "@/components/hooks/useGetVersion";
 import { useCheckUpdate } from "@/components/hooks/useCheckUpdate";
+import { relaunch } from "@tauri-apps/plugin-process";
 
 const Wrap = styled.div`
   flex: 1;
@@ -154,6 +155,7 @@ export const Idle = () => {
           break;
       }
     });
+    await relaunch();
   };
 
   return (
