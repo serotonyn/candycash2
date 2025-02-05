@@ -14,4 +14,4 @@
 # Before publishing
 
 - Add Machine guid (use `Get-ItemProperty -Path HKLM:\\SOFTWARE\\Microsoft\\Cryptography | Select-Object -ExpandProperty MachineGuid`)
-- Make sure batch api is enabled(`http://127.0.0.1:8090/_/#/settings`)
+- (Optional) Add seeds (`src/constants/seed_gourmandises.ts`)
