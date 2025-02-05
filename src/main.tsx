@@ -10,6 +10,7 @@ import App from "./App.tsx";
 import { AppTheme } from "./constants/theme.ts";
 import { AppThemeProvider } from "./providers/ThemeProvider.tsx";
 import { initAutostart } from "./components/hooks/useAutostart.tsx";
+// import { seed } from "./constants/seed_gourmandises.ts";
 // import { checkMachineGuid } from "./components/hooks/useCheckMachineGuid";
 // import { message } from "@tauri-apps/plugin-dialog";
 
@@ -27,6 +28,8 @@ dayjs.locale("fr");
 // }
 
 initAutostart();
+
+// await seed();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

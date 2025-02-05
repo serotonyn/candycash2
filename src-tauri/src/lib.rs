@@ -23,6 +23,9 @@ pub fn run() {
             let data_path = app
                 .path()
                 .resolve("candycash/pb_data", BaseDirectory::LocalData)?;
+            let migrations_path = app
+                .path()
+                .resolve("candycash/pb_migrations", BaseDirectory::LocalData)?;
             let public_path = app
                 .path()
                 .resolve("candycash/pb_public", BaseDirectory::LocalData)?;
@@ -46,6 +49,7 @@ pub fn run() {
                 .args(["serve"])
                 .args(["--dir", data_path.to_str().unwrap()])
                 .args(["--publicDir", public_path.to_str().unwrap()])
+                .args(["--migrationsDir", migrations_path.to_str().unwrap()])
                 .args(["--hooksDir", hooks_path.to_str().unwrap()]);
 
             let (mut rx, mut _child) = sidecar_command.spawn().expect("Failed to spawn sidecar");

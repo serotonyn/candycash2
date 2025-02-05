@@ -99,3 +99,9 @@ export const getRelativeTime = (date: Dayjs) => {
     return date.format("DD/MM/YYYY HH:mm:ss");
   }
 };
+
+export async function imageToBlob(imagePath: string): Promise<Blob> {
+  const response = await fetch(imagePath);
+  const blob = await response.blob();
+  return blob;
+}
