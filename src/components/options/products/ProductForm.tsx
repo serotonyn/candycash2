@@ -10,6 +10,7 @@ import ProductPlaceHolder from "@/assets/product-placeholder.png";
 import styled from "@emotion/styled";
 import {
   Button,
+  ButtonProps,
   Dialog,
   DialogActions,
   DialogBody,
@@ -23,6 +24,7 @@ import {
   tokens,
 } from "@fluentui/react-components";
 import { ImageUpload } from "../../pos/ImageUpload";
+
 
 // import { ImageUpload } from "../../pos/ImageUpload";
 
@@ -139,6 +141,11 @@ export const ProductForm: React.FC<any> = ({
                               <Input
                                 autoComplete="nope"
                                 size="large"
+                                contentAfter={<PromoButton aria-label="promo" onClick={() => {
+                                  if (!field.value || field.value.includes("🔖")) return;
+                                  setValue("name", field.value?.trim() + " 🔖");
+
+                                }} />}
                                 {...field}
                               />
                             </Field>
@@ -222,5 +229,20 @@ export const ProductForm: React.FC<any> = ({
         </DialogSurface>
       </Dialog>
     </>
+  );
+};
+
+const PromoButton: React.FC<ButtonProps> = (props) => {
+  return (
+    <Button
+      {...props}
+      appearance="transparent"
+      size="medium"
+      style={{
+        minWidth: "auto",
+      }}
+    >
+      🔖
+    </Button>
   );
 };
