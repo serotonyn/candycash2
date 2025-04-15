@@ -26,7 +26,7 @@ export const useGetProducts = ({ filter, expand, requestKey }: OwnProps) => {
         ?.collection(Collections.Products)
         .getFullList<ProductsResponse>({
           filter: filter || "",
-          expand: expand || "product, vendor",
+          expand: expand || "product",
           requestKey,
         });
 
