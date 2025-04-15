@@ -36,3 +36,7 @@ https://gist.github.com/serotonyn/dc6558e5d02b1670ad6a0a78694ac52c
 # next update
 
 - do I still need users table, since I'm getting the name of current user from windows
+
+# jerrys crypto id
+
+- 1f5a95d9-5f85-4128-b103-dfa6db2aa50c
