@@ -48,7 +48,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDZFMDkxRUFCRkE4RjkwQTgKUldTb2tJLzZxeDRKYmtNYlRHMWNCREZVVjEwRW8zQ0JaUjRvZTIvRDZJQ1lrTjJHTi9kcGROM3QK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhCQzRCRTM4ODBCRUY3MjIKUldRaTk3NkFPTDdFaTcwbUJOb0ttMTdWS3BPMWI5bEc4dkpxS210Zk90L0wwS3M1ZklvYzR5cDMK",
       "endpoints": [
         "https://github.com/serotonyn/candycash-update/releases/download/latest/latest.json"
       ]
