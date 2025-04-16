@@ -184,6 +184,7 @@ const ProductsCarousel = ({ selectedCategoryId }: ProductsPicker) => {
                 width={20}
                 height={20}
                 id="placeholder"
+                style={{ opacity: 0 }}
               />
               <Caption1Stronger style={{ opacity: 0 }}>
                 {"Dummy"}
