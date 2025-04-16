@@ -40,3 +40,8 @@ https://gist.github.com/serotonyn/dc6558e5d02b1670ad6a0a78694ac52c
 # jerrys crypto id
 
 - 1f5a95d9-5f85-4128-b103-dfa6db2aa50c
+
+# Updater
+
+- 3 files should go to github release (tag should be latest)
+- make sure signature in msi.sig is same as latest.json's signature
