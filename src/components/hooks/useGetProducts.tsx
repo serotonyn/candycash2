@@ -28,6 +28,7 @@ export const useGetProducts = ({ filter, expand, requestKey }: OwnProps) => {
           filter: filter || "",
           expand: expand || "product",
           requestKey,
+          sort: "name",
         });
 
       // @ts-ignore
