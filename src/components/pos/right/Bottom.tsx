@@ -17,24 +17,22 @@ const BottomStyled = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  min-height: 1px;
+  min-height: fit-content;
+  padding: ${tokens.spacingVerticalL};
 `;
 
 const ButtonsWrap = styled.div`
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: ${tokens.spacingHorizontalS};
   align-items: normal;
   height: fit-content;
   border-top: 1px solid ${({ theme }) => theme.colorNeutralBackground1Pressed};
   padding: ${tokens.spacingVerticalL};
-  padding-top: 4vh;
-  padding-bottom: 4vh;
   box-sizing: border-box;
-  height: 180px;
-  min-height: 180px;
   background-color: ${({ theme }) => theme.colorNeutralBackground3};
+  border-radius: 10px;
   & > button {
     flex: 1;
   }
@@ -43,11 +41,13 @@ const ButtonsWrap = styled.div`
 const ButtonStyled = styled(Button)`
   display: flex;
   flex-direction: column;
+  padding: ${tokens.spacingHorizontalL};
   gap: ${tokens.spacingHorizontalL};
   & > span:first-of-type {
     margin-right: 0;
   }
   min-width: 100px;
+  white-space: nowrap;
 `;
 
 // @ts-ignore

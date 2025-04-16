@@ -56,10 +56,10 @@ export const Persona: React.FC<PersonaProps> = ({
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         {!totauxPage ? (
-          <Subtitle2Stronger>{username}</Subtitle2Stronger>
+          <Subtitle2Stronger>{username || " "}</Subtitle2Stronger>
         ) : (
-          <Caption1Stronger style={{ textAlign: "center" }}>
-            {username}
+          <Caption1Stronger style={{ textAlign: "center", opacity: username ? 1 : 0 }}>
+            {username || "."}
           </Caption1Stronger>
         )}
       </div>

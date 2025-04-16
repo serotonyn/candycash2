@@ -15,7 +15,7 @@ const CategoriesStyled = styled.div`
   display: flex;
   align-items: start;
   gap: ${tokens.spacingHorizontalL};
-  height: 20%;
+  min-height: fit-content;
   overflow-x: auto;
   overflow-y: hidden;
 `;
@@ -27,6 +27,7 @@ const CategoryStyled = styled.div`
   padding: ${tokens.spacingHorizontalS};
   justify-content: center;
   align-items: center;
+  width: 100%;
   &:hover {
     background: ${({ theme }) => theme.winBackgroundHover};
     border-radius: ${tokens.borderRadiusMedium};
@@ -41,19 +42,29 @@ const CategoryStyled = styled.div`
     width: 4vh;
     height: 4vh;
   }
+  & span {
+    text-align: center;
+    white-space: pre;
+    font-size: 1.3rem;
+    user-select: none;
+    overflow: hidden;
+    max-width: fit-content;
+    min-width: 100px;
+  }
   user-select: none;
 `;
 
 const ProductsStyled = styled.div`
   padding: ${tokens.spacingHorizontalL};
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: ${tokens.spacingHorizontalL};
-  height: 80%;
-  overflow-x: hidden;
+  flex: 1;
+  overflow-x: auto;
   overflow-y: auto;
   user-select: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: ${tokens.spacingHorizontalL};
+  min-height: fit-content;
+  justify-items: center;
 `;
 
 const ProductStyled = styled.div`
@@ -62,6 +73,9 @@ const ProductStyled = styled.div`
   gap: ${tokens.spacingHorizontalL};
   justify-content: center;
   align-items: center;
+  padding: ${tokens.spacingHorizontalL};
+  width: 80%;
+  max-width: unset;
   &:hover {
     background: ${({ theme }) => theme.winBackgroundHover};
     border-radius: ${tokens.borderRadiusMedium};
@@ -73,6 +87,14 @@ const ProductStyled = styled.div`
   & #placeholder {
     width: 4vh;
     height: 4vh;
+  }
+  & span {
+    text-align: center;
+    white-space: pre;
+    font-size: 1.3rem;
+    user-select: none;
+    overflow: hidden;
+    max-width: fit-content;
   }
 `;
 
@@ -101,13 +123,7 @@ const CategoryPicker = ({ setSelectedCategoryId }: CategoriesPicker) => {
       {categories.map((s) => (
         <CategoryStyled key={s.id} onClick={() => setSelectedCategoryId(s.id)}>
           <Image src={s.imgUrl || Categories} width={80} height={80} />
-          <Caption1Stronger
-            style={{
-              textAlign: "center",
-              whiteSpace: "pre",
-              fontSize: "1.3rem",
-              userSelect: "none",
-            }}>
+          <Caption1Stronger>
             {s.name}
           </Caption1Stronger>
         </CategoryStyled>
@@ -138,12 +154,12 @@ const ProductsCarousel = ({ selectedCategoryId }: ProductsPicker) => {
     addOrderItem(product);
   };
 
-  const productsWithDummies = Array.from({ length: 16 }, (_, i) =>
+  const productsWithDummies = Array.from({ length: 20 }, (_, i) =>
     products && products[i] !== undefined ? products[i] : false
   );
 
   return selectedCategoryId ? (
-    <MotionList>
+    <MotionList style={{ overflow: "auto" }}>
       <ProductsStyled>
         {productsWithDummies.map((s, i) =>
           s ? (
@@ -155,11 +171,7 @@ const ProductsCarousel = ({ selectedCategoryId }: ProductsPicker) => {
                 fit="contain"
               />
               <Caption1Stronger
-                style={{
-                  textAlign: "center",
-                  fontSize: "1.3rem",
-                  userSelect: "none",
-                }}>
+              >
                 {s.name}
               </Caption1Stronger>
             </ProductStyled>
@@ -171,6 +183,9 @@ const ProductsCarousel = ({ selectedCategoryId }: ProductsPicker) => {
                 height={20}
                 id="placeholder"
               />
+              <Caption1Stronger>
+                {" "}
+              </Caption1Stronger>
             </ProductStyled>
           )
         )}

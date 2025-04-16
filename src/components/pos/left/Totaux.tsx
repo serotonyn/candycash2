@@ -12,9 +12,7 @@ import { Persona } from "../../common/Persona";
 import { usePosStore } from "../store";
 
 const Wrap = styled.div`
-  padding-left: ${tokens.spacingHorizontalL};
-  padding-right: ${tokens.spacingHorizontalL};
-  min-height: 180px;
+  padding: ${tokens.spacingHorizontalL};
   border-top: 1px solid ${tokens.colorNeutralBackground1Pressed};
   display: flex;
 `;
@@ -40,6 +38,7 @@ const ButtonStyled = styled(Button)`
   display: flex;
   flex-direction: column;
   gap: ${tokens.spacingHorizontalL};
+  padding: ${tokens.spacingHorizontalL};
   & > span:first-of-type {
     margin-right: 0;
   }
@@ -53,11 +52,7 @@ const ButtonsWrap = styled.div`
   align-items: normal;
   height: fit-content;
   padding: ${tokens.spacingVerticalL};
-  padding-top: 4vh;
-  padding-bottom: 4vh;
   box-sizing: border-box;
-  height: 179px;
-  min-height: 179px;
   background-color: ${({ theme }) => theme.colorNeutralBackground3};
   & > button {
     flex: 1;
