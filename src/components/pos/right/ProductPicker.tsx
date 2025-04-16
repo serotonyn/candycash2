@@ -50,6 +50,7 @@ const CategoryStyled = styled.div`
     overflow: hidden;
     max-width: fit-content;
     min-width: 100px;
+    line-height: 1.8rem;
   }
   user-select: none;
 `;
@@ -61,7 +62,7 @@ const ProductsStyled = styled.div`
   overflow-y: auto;
   user-select: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(20vh, 1fr));
   gap: ${tokens.spacingHorizontalL};
   min-height: fit-content;
   justify-items: center;
@@ -90,11 +91,12 @@ const ProductStyled = styled.div`
   }
   & span {
     text-align: center;
-    white-space: pre;
+    white-space: prewrap;
     font-size: 1.3rem;
     user-select: none;
     overflow: hidden;
     max-width: fit-content;
+    line-height: 1.8rem;
   }
 `;
 

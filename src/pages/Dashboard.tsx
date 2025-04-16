@@ -13,8 +13,13 @@ const Wrap = styled.div`
   min-height: 600px;
 
   & > div {
-    flex: 1;
     height: 100%;
+  }
+  & > div:nth-of-type(1) {
+    flex: 2;
+  }
+  & > div:nth-of-type(2) {
+    flex: 3;
   }
 `;
 

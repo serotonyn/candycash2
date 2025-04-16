@@ -32,6 +32,7 @@ const ButtonsWrap = styled.div`
   padding: ${tokens.spacingVerticalL};
   box-sizing: border-box;
   background-color: ${({ theme }) => theme.colorNeutralBackground3};
+  overflow: auto;
   border-radius: 10px;
   & > button {
     flex: 1;
