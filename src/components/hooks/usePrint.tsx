@@ -51,6 +51,7 @@ export const usePrint = () => {
       console.log(`pdf: ${pdfPath}`);
 
       await printPdf();
+      await printPdf();
     } catch (err) {
       throw err;
     }
