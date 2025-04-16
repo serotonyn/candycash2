@@ -156,6 +156,14 @@ const ProductsCarousel = ({ selectedCategoryId }: ProductsPicker) => {
     addOrderItem(product);
   };
 
+  // sort products depending on wether they have "xx" in their name or not
+  products?.sort((a, b) => {
+    if (a.name.includes("🔖") && !b.name.includes("🔖")) return 1;
+    if (!a.name.includes("🔖") && b.name.includes("🔖")) return -1;
+    return 0;
+  }
+  );
+
   const productsWithDummies = Array.from({ length: 20 }, (_, i) =>
     products && products[i] !== undefined ? products[i] : false
   );
